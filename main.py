@@ -10,7 +10,7 @@ storage = storage.FileStorage("resources/")
 
 @app.route("/")
 def index():
-    return render_template("index.html", carts=storage.carts(100688), timeline=business.get_timeline(storage.users()))  # TODO
+    return render_template("index.html", carts=storage.user(100688).carts, timeline=business.get_timeline(storage.users()))  # TODO
 
 
 @app.route("/cart/<int:cart_id>")

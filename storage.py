@@ -103,17 +103,20 @@ def read_data(path: str):
                 #         "Menge": float(row[9]),
                 #     })
 
-    return user_list
+    return user_list, cart_list
 
 
 class FileStorage:
     def __init__(self, path: str):
         self.path = path
-        self.user_list = read_data(path)
+        self.user_list, self.cart_list = read_data(path)
         return
 
     def users(self):
         return self.user_list
 
-    def carts(self, user_id: int):
-        return self.user_list[user_id].carts
+    def user(self, user_id: int):
+        return self.user_list[user_id]
+
+    def carts(self, cart_id: int):
+        return self.cart_list[cart_id]
