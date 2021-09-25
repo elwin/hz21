@@ -34,6 +34,9 @@ class Cart:
     def score(self) -> int:
         return round(mean(product.score for product in self.products), 1)
 
+    def score_sum(self) -> (int, int):
+        return sum(product.score for product in self.products), len(self.products)
+
     def add_product(self, product: Product):
         self.products.append(product)
 
