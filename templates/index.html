@@ -14,16 +14,11 @@
             <div class="card-body">
                 <h5 class="card-title">
                     <a href="{{ url_for("cart", cart_id=cart.id) }}">
-                        {{ cart.date }}
-                        <span class="badge rounded-pill bg-success">Score: {{ cart.score() }}</span>
+                        Purchase at {{cart.location}} on {{ cart.date.strftime("%a, %d %b %Y") }}
                     </a>
+                    <span class="badge rounded-pill bg-success">Score: {{ cart.score() }}</span>
                 </h5>
-                <p class="card-text">
-                    Some quick example text to build on the card title and make up the bulk of the card's content.
-                </p>
-
                 <ul class="list-group">
-
                     {% for product in cart.products %}
                         <li class="list-group-item">
                             {{ product.name }}

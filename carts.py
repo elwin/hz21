@@ -13,9 +13,10 @@ class Product:
 
 
 class Cart:
-    def __init__(self, cart_id: int, date: datetime.date, products: List[Product]):
+    def __init__(self, cart_id: int, date: datetime.date, location: str, products: List[Product]):
         self.id = cart_id
         self.date = date
+        self.location = location
         self.products = products
 
     def score(self) -> int:

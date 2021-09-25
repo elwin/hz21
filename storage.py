@@ -11,8 +11,8 @@ apple = carts.Product("Apple", 150, 3)
 potatoes = carts.Product("Potatoes", 350, 1)
 
 mock_carts = [
-    carts.Cart(0, datetime.date(2021, 9, 1), [chips, apple]),
-    carts.Cart(1, datetime.date(2021, 9, 2), [chips, potatoes]),
+    carts.Cart(0, datetime.date(2021, 9, 1), [chips, apple], "MM Sarnen-Center"),
+    carts.Cart(1, datetime.date(2021, 9, 2), [chips, potatoes], "M Schöftland"),
 ]
 
 
@@ -77,6 +77,7 @@ def read_data(path: str):
                     cart_list[cart_id] = carts.Cart(
                         cart_id,
                         datetime.datetime.strptime(row[6], "%Y-%m-%d"),
+                        row[4][3:], # exclude canton abbreviation
                         [],
                     )
                     user.add_cart(cart_list[cart_id])
