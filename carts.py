@@ -1,5 +1,6 @@
 import datetime
 from typing import List
+import storage
 
 
 class Product:
@@ -9,12 +10,7 @@ class Product:
         self.score = score
 
     def related(self):
-        return [chips, apple]
-
-
-chips = Product("Chips", 200, 5)
-apple = Product("Apple", 150, 3)
-potatoes = Product("Potatoes", 350, 1)
+        return [storage.chips, storage.apple]
 
 
 class Cart:
@@ -25,10 +21,3 @@ class Cart:
 
     def score(self) -> int:
         return sum(product.score for product in self.products)
-
-
-def get_cards():
-    return {
-        0: Cart(0, datetime.date(2021, 9, 1), 5, [chips, apple]),
-        1: Cart(1, datetime.date(2021, 9, 2), 9, [chips, potatoes]),
-    }

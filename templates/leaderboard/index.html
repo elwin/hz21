@@ -6,6 +6,13 @@
 
 {% block content %}
 
-    This is content
+    <ul class="list-group">
+        {% for user in users %}
+            <li class="list-group-item">
+                {{ user.name }} {{ user.score() }}
+            </li>
+        {% endfor %}
+    </ul>
+
 
 {% endblock %}
