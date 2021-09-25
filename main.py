@@ -29,3 +29,7 @@ def cart(cart_id: int):
 @app.route("/leaderbord")
 def leaderboard():
     return render_template("leaderboard/index.html", users=storage.users())
+
+@app.route("/me")
+def myprofile():
+    return render_template("myprofile/index.html") # logged-in user is hardcoded
