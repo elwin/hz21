@@ -6,13 +6,13 @@ import users
 import carts
 import datetime
 
-chips = carts.Product("Chips", 200, 5)
-apple = carts.Product("Apple", 150, 3)
-potatoes = carts.Product("Potatoes", 350, 1)
+chips = carts.Product("Chips", 200, 5, "https://image.migros.ch/2017-large/fa352f7d033713ba58e96e7e05c4b04060f7fe9f/m-classic-xl-chips-nature-400g.jpg", [])
+apple = carts.Product("Apple", 150, 3, "https://image.migros.ch/2017-large/c86784443644854787947603e2c054b0f9927605/aepfel-jazz.jpg", [])
+potatoes = carts.Product("Potatoes", 350, 1, "https://image.migros.ch/2017-large/5b73957e3e40f7f4ba5eafb0eefa1c87683798fa/kartoffeln-baked-potatoes.jpg", [])
 
 mock_carts = [
-    carts.Cart(0, datetime.date(2021, 9, 1), [chips, apple]),
-    carts.Cart(1, datetime.date(2021, 9, 2), [chips, potatoes]),
+    carts.Cart(0, datetime.date(2021, 9, 1), [chips, apple], "MM Sarnen-Center"),
+    carts.Cart(1, datetime.date(2021, 9, 2), [chips, potatoes], "M Schöftland"),
 ]
 
 
@@ -46,6 +46,8 @@ def read_data(path: str):
                     name=data['name'],
                     price=int(data['price']['item']['price'] * 100),
                     score=int(data['m_check2']['carbon_footprint']['ground_and_sea_cargo']['rating']),
+                    related_ids=list(map(int, data['related_products']['purchase_recommendations']['product_ids'])),
+                    img_link=data['image']['original']
                 )
             except KeyError:
                 pass
@@ -82,6 +84,7 @@ def read_data(path: str):
                     cart_list[cart_id] = carts.Cart(
                         cart_id,
                         datetime.datetime.strptime(row[6], "%Y-%m-%d"),
+                        row[4][3:], # exclude canton abbreviation
                         [],
                     )
                     user.add_cart(cart_list[cart_id])
@@ -113,17 +116,25 @@ def read_data(path: str):
                 customer.carts = sorted(customer.carts, key=lambda cart: cart.date)
             print(0)
 
-    return user_list
+    return user_list, cart_list, product_list
 
 
 class FileStorage:
     def __init__(self, path: str):
         self.path = path
-        self.user_list = read_data(path)
+        self.user_list, self.cart_list, self.products = read_data(path)
+
         return
 
     def users(self):
         return self.user_list
 
-    def carts(self, user_id: int):
-        return self.user_list[user_id].carts
+    def user(self, user_id: int):
+        return self.user_list[user_id]
+
+    def get_carts(self, cart_id: int):
+        return self.cart_list[cart_id]
+
+    def get_related(self, product: carts.Product):
+        return [self.products.get(key) for key in product.related_ids if key in self.products]
+
