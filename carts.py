@@ -1,9 +1,6 @@
 import datetime
 from typing import List
-
-import carts
 import storage
-
 
 class Product:
     def __init__(self, name: str, price: int, score: int):
@@ -24,5 +21,5 @@ class Cart:
     def score(self) -> int:
         return sum(product.score for product in self.products)
 
-    def add_product(self, product: carts.Product):
+    def add_product(self, product: Product):
         self.products.append(product)
