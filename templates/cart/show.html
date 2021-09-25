@@ -9,15 +9,19 @@
 {% endblock %}
 
 {% block content %}
+    <style>
+        .border-right {
+            border-right: 1px dashed var(--bs-gray-dark);
+        }
+    </style>
     {% for product in cart.products %}
+        {% if storage.get_related(product) %}
+            <div class="card mb-4">
+                <div class="card-body">
 
-        <div class="card mb-4">
-            <div class="card-body">
-
-                {% if storage.get_related(product) %}
 
                     <div class="row flex-row flex-nowrap" style="overflow-y: auto;">
-                        <div class="product-width">
+                        <div class="product-width border-right">
                             {% include 'partials/product.html' %}
                         </div>
 
@@ -31,16 +35,9 @@
                     </div>
 
 
-                {% else %}
-
-                    <p class="card-text">
-                        No alternatives
-                    </p>
-
-                {% endif %}
-
+                </div>
             </div>
-        </div>
+        {% endif %}
     {% endfor %}
 
 {% endblock %}
