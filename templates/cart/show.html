@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Cart {{ cart.date }} <span class="badge rounded-pill bg-success">Score: {{ cart.score() }}</span>
+    Cart {{ cart.date.strftime("%a, %d %b %Y") }}
+    <span class="badge rounded-pill bg-success">Score: {{ cart.score() }}</span>
 {% endblock %}
 
 {% block content %}
@@ -9,21 +10,29 @@
 
         <div class="card mb-4">
             <div class="card-body">
-                <h5 class="card-title">
-                    {{ product.name }}
-                </h5>
-                <p class="card-text">
-                    Here some related products:
-                </p>
+                {% include 'partials/product.html' %}
 
-                <ul class="list-group">
-                    {% for related in storage.get_related(product) %}
-                        <li class="list-group-item">
-                            {{ related.name }}
-                            <small class="text-muted">{{ related.score }}</small>
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% if storage.get_related(product) %}
+
+                    <p class="card-text">
+                        Here some related products:
+                    </p>
+
+                    <ul class="list-group list-group-horizontal" style="overflow-x: auto; white-space: nowrap;">
+                        {% for product in storage.get_related(product) %}
+                            <!--This is supposed to be horizontally scrollable - but I can't figure it out-->
+                            {% include 'partials/product.html' %}
+                        {% endfor %}
+                    </ul>
+
+
+                {% else %}
+
+                    <p class="card-text">
+                        No alternatives
+                    </p>
+
+                {% endif %}
 
             </div>
         </div>

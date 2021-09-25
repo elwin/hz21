@@ -100,23 +100,11 @@
                     </a>
                     <span class="badge rounded-pill bg-success">Score: {{ cart.score() }}</span>
                 </h5>
+
                 <ul class="list-group list-group-horizontal" style="overflow-x: auto; white-space: nowrap;">
                     {% for product in cart.products %}
                         <!--This is supposed to be horizontally scrollable - but I can't figure it out-->
-                        <div class="list-group-item card flex-fill" style="min-width: 18rem">
-                        <span class="badge rounded-pill {{ product.get_bg_color() }}">{{ product.score }}</span>
-
-                            <div>
-                                <img
-                                        class="card-img-top"
-                                        style="max-height: 128px; object-fit: contain;"
-                                        src={{ product.img_link }}
-                                >
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text">{{ product.name }}</p>
-                            </div>
-                        </div>
+                        {% include 'partials/product.html' %}
                     {% endfor %}
                 </ul>
 

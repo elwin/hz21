@@ -1,0 +1,14 @@
+<div class="list-group-item card flex-fill" style="min-width: 18rem">
+    <span class="badge rounded-pill {{ product.get_bg_color() }}">{{ product.score }}</span>
+
+    <div>
+        <img
+                class="card-img-top"
+                style="max-height: 128px; object-fit: contain;"
+                src={{ product.img_link }}
+        >
+    </div>
+    <div class="card-body">
+        <p class="card-text">{{ product.name }}</p>
+    </div>
+</div>
