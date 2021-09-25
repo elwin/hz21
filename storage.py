@@ -43,7 +43,7 @@ class MockStorage:
 def read_data(path: str):
     product_list = {}
     product_path = path + "products/"
-    for filename in os.listdir(product_path):
+    for filename in os.listdir(product_path)[:3000]:
         with open(product_path + filename, encoding="utf-8") as f:
             data = json.loads(f.read())
             try:
@@ -68,21 +68,23 @@ def read_data(path: str):
         with open(shopping_path + filename) as f:
             r = csv.reader(f, delimiter=',')
 
-            customers = {}
-
             for i, row in enumerate(r):
-                if i == 0:
+                if i == 0:  # header row
                     continue
 
-                if i == 1000:
+                if i == 3000:   # cutoff
                     break
 
                 customer_id = int(row[1])
                 if customer_id not in user_list:
-                    user_list[customer_id] = users.User(customer_id, f"xyz_{customer_id}", [])
-                user = user_list[customer_id]
+                    if len(user_list) == 5:  # only take 5 users for now
+                        continue
+                    user_list[customer_id] = users.User(
+                        user_id=customer_id,
+                        name=['Elwin', 'Daniela', 'Till', 'Leon', 'Ueli'][len(user_list)],  # f"xyz_{customer_id}"
+                        carts=[])
 
-                customers[customer_id] = user
+                user = user_list[customer_id]
 
                 cart_id = int(row[0])
                 if cart_id not in cart_list:
@@ -93,6 +95,7 @@ def read_data(path: str):
                         [],
                     )
                     user.add_cart(cart_list[cart_id])
+                    print(f'adding to user {user} with id {customer_id}')
                 cart = cart_list[cart_id]
 
                 product_id = int(row[8])
@@ -101,9 +104,15 @@ def read_data(path: str):
 
                 cart.add_product(product_list[product_id])
 
-            # sort cards
-            for id, customer in customers.items():
+            # sort carts
+            for id, customer in user_list.items():
                 customer.carts = sorted(customer.carts, key=lambda cart: cart.date)
+
+    # add friends
+    for id1, u1 in user_list.items():
+        for id2, u2 in user_list.items():
+            if id1 != id2:
+                u1.friends.append(u2)
 
     return user_list, cart_list, product_list
 

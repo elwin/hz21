@@ -6,13 +6,6 @@
 
     <h1>Stats</h1>
 
-    <pre>
-        {{ timeline | tojson }}
-    </pre
-
-
-            <!-- <div style="width:100%;">
-    </div> -->
     <canvas id="myChart"></canvas>
 
     <script>
@@ -20,7 +13,7 @@
         let user_data = {{ timeline | tojson }};
         const numWeeks = 10;
         let currentWeek = user_data['current_week']
-        let friends = user_data['friends']
+        let friends_scores = user_data['friends_scores']
 
         /*
         // https://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php
@@ -60,16 +53,16 @@
 
         // add friends
         let ctr = 0;
-        for (var i = 0; i < friends.length; i++) {
-            let f = friends[i];
+        for (const [name, scores] of Object.entries(friends_scores)) {
             datasets.push({
-                label: f.name,
-                data: f.score_hist,
+                label: name,
+                data: scores,
                 fill: false,
                 borderColor: selectColor(++ctr),
                 tension: 0.15
             })
         }
+        console.log(datasets);
 
         const data = {
             labels: labels,

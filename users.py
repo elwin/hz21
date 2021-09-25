@@ -7,6 +7,10 @@ class User:
         self.id = user_id
         self.name = name
         self.carts = carts
+        self.friends = []
+
+    def add_friend(self, friend):
+        self.friends.append(friend)
 
     def add_cart(self, cart: carts.Cart):
         self.carts.append(cart)
