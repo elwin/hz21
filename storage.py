@@ -45,7 +45,7 @@ def read_data(path: str):
                 product_list[int(data['id'])] = carts.Product(
                     name=data['name'],
                     price=int(data['price']['item']['price'] * 100),
-                    score=123,
+                    score=int(data['m_check2']['carbon_footprint']['ground_and_sea_cargo']['rating']),
                 )
             except KeyError:
                 pass
@@ -74,7 +74,11 @@ def read_data(path: str):
 
                 cart_id = int(row[2])
                 if cart_id not in cart_list:
-                    cart_list[cart_id] = carts.Cart(cart_id, datetime.date.today(), [])
+                    cart_list[cart_id] = carts.Cart(
+                        cart_id,
+                        datetime.datetime.strptime(row[6], "%Y-%m-%d"),
+                        [],
+                    )
                     user.add_cart(cart_list[cart_id])
                 cart = cart_list[cart_id]
 
