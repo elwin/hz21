@@ -5,7 +5,7 @@ import datetime
 
 
 def get_week(date: datetime.datetime) -> int:
-    return datetime.date(date.year, date.month, date.day).isocalendar().week
+    return datetime.date(date.year, date.month, date.day).isocalendar()[1]
 
 
 def get_user_weeks_score(user: users.User, num_weeks: int, current_week: int):
