@@ -15,7 +15,7 @@ def index():
 
 @app.route("/cart/<int:cart_id>")
 def cart(cart_id: int):
-    return render_template("cart/show.html", cart=storage.get_carts(cart_id), storage=storage)
+    return render_template("cart/show.html", cart=storage.carts(cart_id))
 
 
 @app.route("/leaderbord")
