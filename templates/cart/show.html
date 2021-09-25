@@ -1,32 +1,43 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Cart {{ cart.date }} <span class="badge rounded-pill bg-success">Score: {{ cart.score() }}</span>
+    Purchase at {{ cart.location }}
+    <span class="badge rounded-pill px-4 {{ cart.get_bg_color() }}">{{ cart.score() }}</span>
+    <br>
+    <small class="text-muted">{{ cart.date.strftime("%a, %d %b %Y") }}</small>
+
 {% endblock %}
 
 {% block content %}
+    <style>
+        .border-right {
+            border-right: 1px dashed var(--bs-gray-dark);
+        }
+    </style>
     {% for product in cart.products %}
+        {% if storage.get_related(product) %}
+            <div class="card mb-4">
+                <div class="card-body">
 
-        <div class="card mb-4">
-            <div class="card-body">
-                <h5 class="card-title">
-                    {{ product.name }}
-                </h5>
-                <p class="card-text">
-                    Here some related products:
-                </p>
 
-                <ul class="list-group">
-                    {% for related in storage.get_related(product) %}
-                        <li class="list-group-item">
-                            {{ related.name }}
-                            <small class="text-muted">{{ related.score }}</small>
-                        </li>
-                    {% endfor %}
-                </ul>
+                    <div class="row flex-row flex-nowrap" style="overflow-y: auto;">
+                        <div class="product-width border-right">
+                            {% include 'partials/product.html' %}
+                        </div>
 
+
+                        {% for product in storage.get_related(product) %}
+                            <!--This is supposed to be horizontally scrollable - but I can't figure it out-->
+                            <div class="product-width">
+                                {% include 'partials/product.html' %}
+                            </div>
+                        {% endfor %}
+                    </div>
+
+
+                </div>
             </div>
-        </div>
+        {% endif %}
     {% endfor %}
 
 {% endblock %}

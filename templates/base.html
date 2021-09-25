@@ -12,14 +12,48 @@
     <!-- Chart.js -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 
+    <style>
+        a {
+            color: black;
+        }
+        a:hover{
+            color:#0a58ca;
+        }
+
+        .nav-link {
+            color: black;
+        }
+        body {
+            font-family: Helvetica Now Display,Helvetica,arial,sans-serif;
+        }
+
+        .price-badge {
+            border-radius: 0;
+            color: black;
+            background-color: #FFD910;
+        }
+
+        .cart-title {
+            text-decoration: none;
+        }
+    </style>
     <title>Migros HackZurich</title>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-light bg-white">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
-            <img src="/static/bee_logo_text.svg")}}" class="img-fluid">
+            <img
+                    src="{{ url_for('static', filename='bee_logo_text.svg') }}"
+                    class="img-fluid"
+                    style="height: 32px"
+            >
+            <img
+                    src="{{ url_for('static', filename='bee_logo.png') }}"
+                    class="img-fluid float-right"
+                    style="height: 32px"
+            >
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,6 +62,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for("myprofile") }}">My Profile</a>
                     <a class="nav-link" href="{{ url_for("leaderboard") }}">Leaderboard</a>
                 </li>
             </ul>
@@ -37,11 +72,17 @@
 
 <main class="bg-light pt-4">
     <div class="container">
-        <h1>{% block title %}{% endblock %}</h1>
+        <h3>{% block title %}{% endblock %}</h3>
 
         {% block content %}{% endblock %}
     </div>
 </main>
+
+<style>
+    .product-width {
+        width: 16rem;
+    }
+</style>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"

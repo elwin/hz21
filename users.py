@@ -16,4 +16,10 @@ class User:
         self.carts.append(cart)
 
     def score(self) -> int:
-        return sum([cart.score() for cart in self.carts])
+        if len(self.carts) == 0:
+            return 0
+
+        score = sum(cart.score_sum()[0] for cart in self.carts)
+        num = sum(cart.score_sum()[1] for cart in self.carts)
+
+        return round(score / num, 1)

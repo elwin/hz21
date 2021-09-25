@@ -1,10 +1,11 @@
 import csv
 import json
 import os
-
+import names
 import users
 import carts
 import datetime
+
 
 chips = carts.Product("Chips", 200, 5,
                       "https://image.migros.ch/2017-large/fa352f7d033713ba58e96e7e05c4b04060f7fe9f/m-classic-xl-chips-nature-400g.jpg",
@@ -38,7 +39,6 @@ class MockStorage:
             0: mock_carts[0],
             1: mock_carts[1],
         }
-
 
 def read_data(path: str):
 
@@ -130,6 +130,8 @@ def read_data(path: str):
         for id2, u2 in user_list.items():
             if id1 != id2:
                 u1.friends.append(u2)
+
+    user_list = {k: user_list[k] for k in list(user_list)[:10]}
 
     return user_list, cart_list, product_list
 

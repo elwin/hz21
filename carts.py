@@ -1,7 +1,7 @@
 import datetime
 from typing import List
 import storage
-
+from statistics import mean
 
 class Product:
     def __init__(self, name: str, price: int, score: int,  img_link: str, related_ids: List[int]):
@@ -14,6 +14,15 @@ class Product:
     def related(self):
         return [storage.chips, storage.apple]
 
+    def get_bg_color(self) -> str:
+        if self.score >= 4:
+            return "bg-success"
+        if self.score >= 2:
+            return "bg-warning"
+        if self.score == 1:
+            return "bg-danger"
+        return "bg-secondary"
+
 
 class Cart:
     def __init__(self, cart_id, date: datetime.date, location: str, products: List[Product]):
@@ -23,7 +32,19 @@ class Cart:
         self.products = products
 
     def score(self) -> int:
-        return sum(product.score for product in self.products)
+        return round(mean(product.score for product in self.products), 1)
+
+    def score_sum(self) -> (int, int):
+        return sum(product.score for product in self.products), len(self.products)
 
     def add_product(self, product: Product):
         self.products.append(product)
+
+    def get_bg_color(self) -> str:
+        if self.score() >= 4:
+            return "bg-success"
+        if self.score() >= 2:
+            return "bg-warning"
+        if self.score() >= 1:
+            return "bg-danger"
+        return "bg-secondary"
