@@ -35,6 +35,7 @@ for filename in os.listdir('resources/shopping_cart/'):
             if customer_id not in default_customers:
                 if customer_id not in customer_assignments:
                     customer_assignments[customer_id] = random.choice(default_customers)
+                row[2] = str(row[1]+row[2])
                 row[1] = str(customer_assignments[customer_id])
             data.append(row)
 

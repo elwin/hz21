@@ -1,0 +1,26 @@
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">
+            Purchase at {{ cart.location }}
+            <span class="badge rounded-pill {{ cart.get_bg_color() }} px-3">{{ cart.score() }}</span>
+
+            <br>
+            <small class="text-muted">{{ cart.date.strftime("%a, %d %b %Y") }}</small>
+        </h5>
+
+
+        <div class="row flex-row flex-nowrap" style="overflow-y: auto;">
+            {% for product in cart.products %}
+                <div class="mr-4 product-width">
+                    {% include 'partials/product.html' %}
+                </div>
+            {% endfor %}
+        </div>
+        <a class="btn btn-secondary mt-3"
+           href="{{ url_for("cart", cart_id=cart.id) }}"
+        >
+            More details
+        </a>
+
+    </div>
+</div>

@@ -15,7 +15,7 @@ def index():
     return render_template("index.html",
                            carts=storage.get_carts(me),
                            timeline=business.get_timeline(storage.user(me)),
-                           current_cart=storage.get_cart(999999),
+                           current_cart=storage.get_cart(34391089036),
                            )
 
 
