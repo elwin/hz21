@@ -100,25 +100,22 @@
             <div class="card-body">
                 <h5 class="card-title">
                     <a href="{{ url_for("cart", cart_id=cart.id) }}">
-                        Purchase at {{cart.location}} on {{ cart.date.strftime("%a, %d %b %Y") }}
+                        Purchase at {{ cart.location }} on {{ cart.date.strftime("%a, %d %b %Y") }}
                     </a>
                     <span class="badge rounded-pill bg-success">Score: {{ cart.score() }}</span>
                 </h5>
                 <ul class="list-group list-group-horizontal" style="overflow-x: auto; white-space: nowrap;">
                     {% for product in cart.products %}
-                    <!--This is supposed to be horizontally scrollable - but I can't figure it out-->
+                        <!--This is supposed to be horizontally scrollable - but I can't figure it out-->
                         <div class="list-group-item card flex-fill" style="min-width: 18rem">
-                            {% if product.score==5 or product.score==4%}
-                                <span class="badge rounded-pill bg-success">{{ product.score }}</span>
-                            {% elif product.score==3 or product.score==2 %}
-                                <span class="badge rounded-pill bg-warning">{{ product.score }}</span>
-                            {% elif product.score==1%}
-                                <span class="badge rounded-pill bg-danger">{{ product.score }}</span>
-                            {% else %}
-                                <span class="badge rounded-pill bg-sceondary">{{ product.score }}</span>
-                            {% endif %}
+                        <span class="badge rounded-pill {{ product.get_bg_color() }}">{{ product.score }}</span>
+
                             <div>
-                                <img class="card-img-top" style="display: block; margin: auto; max-height: 100px; width: 100%;" src={{product.img_link}}> 
+                                <img
+                                        class="card-img-top"
+                                        style="max-height: 128px; object-fit: contain;"
+                                        src={{ product.img_link }}
+                                >
                             </div>
                             <div class="card-body">
                                 <p class="card-text">{{ product.name }}</p>

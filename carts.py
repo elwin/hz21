@@ -14,6 +14,15 @@ class Product:
     def related(self):
         return [storage.chips, storage.apple]
 
+    def get_bg_color(self) -> str:
+        if self.score >= 4:
+            return "bg-success"
+        if self.score >= 2:
+            return "bg-warning"
+        if self.score == 1:
+            return "bg-danger"
+        return "bg-secondary"
+
 
 class Cart:
     def __init__(self, cart_id: int, date: datetime.date, location: str, products: List[Product]):
