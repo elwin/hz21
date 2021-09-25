@@ -3,9 +3,102 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
+
+    <h1>Stats</h1>
+
     <pre>
         {{ timeline | tojson }}
     </pre
+
+
+            <!-- <div style="width:100%;">
+    </div> -->
+    <canvas id="myChart"></canvas>
+
+    <script>
+
+        let user_data = {{ timeline | tojson }};
+        const numWeeks = 10;
+        let currentWeek = user_data['current_week']
+        let friends = user_data['friends']
+
+        /*
+        // https://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php
+        Date.prototype.getWeekNumber = function () {
+            var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
+            var dayNum = d.getUTCDay() || 7;
+            d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+            var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+            return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
+        }
+        */
+
+        // https://stackoverflow.com/questions/10014271/generate-random-color-distinguishable-to-humans
+        function selectColor(number) {
+            const hue = number * 137.508; // use golden angle approximation
+            return `hsl(${hue},50%,75%)`;
+        }
+
+        // const currentWeek = new Date().getWeekNumber();
+
+        weekNrs = [];
+        for (let i = currentWeek - numWeeks + 1; i <= currentWeek; i++) {
+            weekNrs.push(i);
+        }
+        // console.log(weekNrs);
+        const labels = weekNrs.map(function (wnr) {
+            return 'W' + wnr;
+        });
+
+        const datasets = [{
+            label: 'Your Score History',
+            data: [65, 59, 80, 81, 56, 55, 40, 35, 67, 50],
+            fill: true,
+            borderColor: selectColor(0),
+            tension: 0.15
+        }];
+
+        // add friends
+        let ctr = 0;
+        for (var i = 0; i < friends.length; i++) {
+            let f = friends[i];
+            datasets.push({
+                label: f.name,
+                data: f.score_hist,
+                fill: false,
+                borderColor: selectColor(++ctr),
+                tension: 0.15
+            })
+        }
+
+        const data = {
+            labels: labels,
+            datasets: datasets
+        };
+
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                    xAxis: {
+                        // text: 'x axis',
+                        position: 'bottom',
+                        // grid: {
+                        //     color: '#77cc55'
+                        // }
+                    },
+                    yAxis: {
+                        type: 'logarithmic',
+                        // text: 'y axis',
+                        position: 'left'
+                    }
+                }
+            }
+        });
+
+    </script>
 
     <h1>Carts</h1>
 

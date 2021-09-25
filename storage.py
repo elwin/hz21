@@ -6,9 +6,14 @@ import users
 import carts
 import datetime
 
-chips = carts.Product("Chips", 200, 5, "https://image.migros.ch/2017-large/fa352f7d033713ba58e96e7e05c4b04060f7fe9f/m-classic-xl-chips-nature-400g.jpg", [])
-apple = carts.Product("Apple", 150, 3, "https://image.migros.ch/2017-large/c86784443644854787947603e2c054b0f9927605/aepfel-jazz.jpg", [])
-potatoes = carts.Product("Potatoes", 350, 1, "https://image.migros.ch/2017-large/5b73957e3e40f7f4ba5eafb0eefa1c87683798fa/kartoffeln-baked-potatoes.jpg", [])
+chips = carts.Product("Chips", 200, 5,
+                      "https://image.migros.ch/2017-large/fa352f7d033713ba58e96e7e05c4b04060f7fe9f/m-classic-xl-chips-nature-400g.jpg",
+                      [])
+apple = carts.Product("Apple", 150, 3,
+                      "https://image.migros.ch/2017-large/c86784443644854787947603e2c054b0f9927605/aepfel-jazz.jpg", [])
+potatoes = carts.Product("Potatoes", 350, 1,
+                         "https://image.migros.ch/2017-large/5b73957e3e40f7f4ba5eafb0eefa1c87683798fa/kartoffeln-baked-potatoes.jpg",
+                         [])
 
 mock_carts = [
     carts.Cart(0, datetime.date(2021, 9, 1), [chips, apple], "MM Sarnen-Center"),
@@ -22,10 +27,10 @@ class MockStorage:
 
     def users(self):
         return [
-            users.User("Dani", self.carts()),
-            users.User("Leon", self.carts()),
-            users.User("Till", self.carts()),
-            users.User("Elwin", self.carts()),
+            users.User(0, "Dani", self.carts()),
+            users.User(1, "Leon", self.carts()),
+            users.User(2, "Till", self.carts()),
+            users.User(3, "Elwin", self.carts()),
         ]
 
     def carts(self, user_id: int = 0):
@@ -38,7 +43,7 @@ class MockStorage:
 def read_data(path: str):
     product_list = {}
     product_path = path + "products/"
-    for filename in os.listdir(product_path)[:1000]:
+    for filename in os.listdir(product_path)[:2000]:
         with open(product_path + filename) as f:
             data = json.load(f)
             try:
@@ -59,9 +64,12 @@ def read_data(path: str):
 
     shopping_path = path + "shopping_cart/"
 
-    for filename in os.listdir(shopping_path)[:1]:
+    for filename in os.listdir(shopping_path)[:10]:
         with open(shopping_path + filename) as f:
             r = csv.reader(f, delimiter=',')
+
+            customers = {}
+
             for i, row in enumerate(r):
                 if i == 0:
                     continue
@@ -71,15 +79,17 @@ def read_data(path: str):
 
                 customer_id = int(row[1])
                 if customer_id not in user_list:
-                    user_list[customer_id] = users.User(f"xyz_{customer_id}", [])
+                    user_list[customer_id] = users.User(customer_id, f"xyz_{customer_id}", [])
                 user = user_list[customer_id]
 
-                cart_id = int(row[2])
+                customers[customer_id] = user
+
+                cart_id = int(row[0])
                 if cart_id not in cart_list:
                     cart_list[cart_id] = carts.Cart(
                         cart_id,
                         datetime.datetime.strptime(row[6], "%Y-%m-%d"),
-                        row[4][3:], # exclude canton abbreviation
+                        row[4][3:],  # exclude canton abbreviation
                         [],
                     )
                     user.add_cart(cart_list[cart_id])
@@ -91,20 +101,9 @@ def read_data(path: str):
 
                 cart.add_product(product_list[product_id])
 
-                # if customer_id not in shopping_data:
-                #     shopping_data[customer_id] = []
-                #     shopping_data[customer_id].append({
-                #         "YYYYMM": int(row[0]),
-                #         "KundeID": int(row[1]),
-                #         "WarenkorbID": int(row[2]),
-                #         "ProfitKSTID": int(row[3]),
-                #         "ProfitKSTNameD": row[4],
-                #         "GenossenschaftCode": row[5],
-                #         "TransaktionDatumID": row[6],
-                #         "TransaktionZeit": row[7],
-                #         "ArtikelID": int(row[8]),
-                #         "Menge": float(row[9]),
-                #     })
+            # sort cards
+            for id, customer in customers.items():
+                customer.carts = sorted(customer.carts, key=lambda cart: cart.date)
 
     return user_list, cart_list, product_list
 
@@ -122,9 +121,11 @@ class FileStorage:
     def user(self, user_id: int):
         return self.user_list[user_id]
 
-    def get_carts(self, cart_id: int):
+    def get_carts(self, user_id: int):
+        return self.user_list[user_id].carts
+
+    def get_cart(self, cart_id: int):
         return self.cart_list[cart_id]
 
     def get_related(self, product: carts.Product):
         return [self.products.get(key) for key in product.related_ids if key in self.products]
-
