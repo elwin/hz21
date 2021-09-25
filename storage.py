@@ -106,6 +106,8 @@ def read_data(path: str):
             for id, customer in customers.items():
                 customer.carts = sorted(customer.carts, key=lambda cart: cart.date)
 
+    user_list = {k: user_list[k] for k in list(user_list)[:10]}
+
     return user_list, cart_list, product_list
 
 
