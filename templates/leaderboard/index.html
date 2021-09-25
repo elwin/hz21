@@ -7,7 +7,7 @@
 {% block content %}
 
     <ul class="list-group">
-        {% for user in users %}
+        {% for id, user in users.items() %}
             <li class="list-group-item">
                 {{ user.name }} {{ user.score() }}
             </li>
