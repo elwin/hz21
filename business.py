@@ -10,7 +10,7 @@ def get_week(date: datetime.datetime) -> int:
 
 def get_timeline(user):
 
-    user_id = 100688    # just for dev
+    # user_id = 100688    # just for dev
     # user = users[user_id]
     carts = user.carts
     scores = {
@@ -34,7 +34,7 @@ def get_timeline(user):
     for week, carts in carts_in_week.items():
         avg_scores_in_week[week] = sum([cart.score() for cart in carts]) / len(carts)
 
-    current_week = get_week(datetime.datetime().today())
+    current_week = get_week(carts[-1].date)  # get_week(datetime.datetime.today())
 
     weekly_scores = [
         avg_scores_in_week[week].score() if avg_scores_in_week.get(week) is not None else None
@@ -42,7 +42,7 @@ def get_timeline(user):
     ]
 
     return {
-        'user_id': user_id,
+        'user_id': user.id_,
         'current_week': current_week,
         'total_score': total_score,
         'avg_score': avg_score,
