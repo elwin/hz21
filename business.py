@@ -8,9 +8,10 @@ def get_week(date: datetime.datetime) -> int:
     return datetime.date(date.year, date.month, date.day).isocalendar().week
 
 
-def get_timeline(user):
+def get_timeline(user: users.User):
+    return []  # TODO REMOVE
 
-    user_id = 100688    # just for dev
+    user_id = 100688  # just for dev
     # user = users[user_id]
     carts = user.carts
     scores = {
@@ -38,7 +39,7 @@ def get_timeline(user):
 
     weekly_scores = [
         avg_scores_in_week[week].score() if avg_scores_in_week.get(week) is not None else None
-        for week in range(current_week-9, current_week+1)
+        for week in range(current_week - 9, current_week + 1)
     ]
 
     return {
