@@ -1,0 +1,46 @@
+(Introduction)
+
+We are "bee COOl", and our goal is to make people more carbon consciouos by taking small actions while shopping.
+
+[can be substitute by: we plan to encourage people to be more sustainable]
+
+(Data - problem)
+
+Grocery shopping contributes with around 40% to an individual's carbon footprint. Making greener shopping can be difficult due to the amount of available options. Going green is often associated with great sacrifice or a too much expensive lifestyle. 
+
+We are here to show that this is not true! Going green is affordable and possible. By making making minor changes to what we buy can bring huge impacts to the environment!
+
+(Storytelling)
+
+Meet bee. She is there to help you with living sustainably while staying on a budget. Once you register at our platform, bee is already available for you to take care of it. You can check bee
+
+
+And how should you choose the better produtcs, by simply  bee will help you to choose greener alternatives while respecting your budget.
+
+(Platform presentation)
+
+Using the app is very simple. First, you compose a shopping list. Based on your preferred supermarket, as well as current and past orders, Bee knows which items you would usually buy. Using the (threshold) slider, our machine learning algorithm informs you about greener alternatives that can lead to huge savings in carbon emissions! In this manner, the app enables you to take the most impactful decision for spending an extra dollar.
+
+(Business plan)
+
+BeeCOOL is free. With a premium membership you will e able to unlock additional features, like ...
+
+If you don't want to start using another app, our services also integrates with supermarket apps, used as a one-click solution before the checkout.
+
+By partnering up with supermarkets, we offer our service as plugin in their apps, and the data we collec is invaluable for our partners to understand their customers, and how to better serve their needs for greener products. 
+
+We envision a greener customer-supermarket relationship and our service realizes an important step towards that goal.
+
+
+
+(short intro)
+
+------------------------
+live pitch: maybe starts with - Whom of you have already made a shopping list before? 
+
+
+We all know that climate change will impact everyone, we need to act, and with small actions on a daily basis we will generate a big impact....
+
+CO2 impacts... bla bla bla
+
+------------------------
