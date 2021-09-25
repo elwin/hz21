@@ -18,12 +18,20 @@
                     </a>
                     <span class="badge rounded-pill bg-success">Score: {{ cart.score() }}</span>
                 </h5>
-                <ul class="list-group">
+                <ul class="list-group list-group-horizontal">
                     {% for product in cart.products %}
-                        <li class="list-group-item">
-                            {{ product.name }}
-                            <small class="text-muted">{{ product.score }}</small>
-                        </li>
+                        <div class="list-group-item card flex-fill" style="width: 18rem; height: 18rem;">
+                            <!--This is supposed to be horizontally scrollable - but I can't figure it out-->
+                            <div style="">
+                                <img class="card-img-top" style="display: block; margin: auto; max-height: 100px; width: 100%;" src={{product.img_link}}> 
+                            </div>
+                            <div class="card-body">
+                            <p class="card-text">{{ product.name }}
+                                <!--For some reason, the badge doesn't show up :( -->
+                                <a class="badge badge-pill badge-success">{{ product.score }}</a>
+                            </p>
+                            </div>
+                        </div>
                     {% endfor %}
                 </ul>
 

@@ -4,10 +4,11 @@ import storage
 
 
 class Product:
-    def __init__(self, name: str, price: int, score: int, related_ids: List[int]):
+    def __init__(self, name: str, price: int, score: int,  img_link: str, related_ids: List[int]):
         self.name = name
         self.price = price
         self.score = score
+        self.img_link = img_link
         self.related_ids = related_ids
 
     def related(self):

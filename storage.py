@@ -6,9 +6,9 @@ import users
 import carts
 import datetime
 
-chips = carts.Product("Chips", 200, 5, [])
-apple = carts.Product("Apple", 150, 3, [])
-potatoes = carts.Product("Potatoes", 350, 1, [])
+chips = carts.Product("Chips", 200, 5, "https://image.migros.ch/2017-large/fa352f7d033713ba58e96e7e05c4b04060f7fe9f/m-classic-xl-chips-nature-400g.jpg", [])
+apple = carts.Product("Apple", 150, 3, "https://image.migros.ch/2017-large/c86784443644854787947603e2c054b0f9927605/aepfel-jazz.jpg", [])
+potatoes = carts.Product("Potatoes", 350, 1, "https://image.migros.ch/2017-large/5b73957e3e40f7f4ba5eafb0eefa1c87683798fa/kartoffeln-baked-potatoes.jpg", [])
 
 mock_carts = [
     carts.Cart(0, datetime.date(2021, 9, 1), [chips, apple], "MM Sarnen-Center"),
@@ -46,7 +46,8 @@ def read_data(path: str):
                     name=data['name'],
                     price=int(data['price']['item']['price'] * 100),
                     score=int(data['m_check2']['carbon_footprint']['ground_and_sea_cargo']['rating']),
-                    related_ids=list(map(int, data['related_products']['purchase_recommendations']['product_ids']))
+                    related_ids=list(map(int, data['related_products']['purchase_recommendations']['product_ids'])),
+                    img_link=data['image']['original']
                 )
             except KeyError:
                 pass
