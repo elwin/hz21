@@ -12,4 +12,7 @@ class User:
         self.carts.append(cart)
 
     def score(self) -> int:
+        if len(self.carts) == 0:
+            return 0
+
         return mean([cart.score() for cart in self.carts])
