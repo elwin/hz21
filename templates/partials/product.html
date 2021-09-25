@@ -9,6 +9,7 @@
         >
     </div>
     <div class="card-body">
-        <p class="card-text">{{ product.name }}</p>
+        <span class="card-text align-baseline text-truncate" style="display: block;">{{ product.name }}</span>
+        <span class="badge price-badge">{{'{:.2f}'.format(product.price / 100) }} CHF</span>
     </div>
 </div>
