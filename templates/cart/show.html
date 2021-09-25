@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Cart {{ cart.date }} <span class="badge rounded-pill bg-success">Score: {{ cart.score() }}</span>
+{% endblock %}
+
+{% block content %}
+    {% for product in cart.products %}
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ product.name }}
+                </h5>
+                <p class="card-text">
+                    Here some related products:
+                </p>
+
+                <ul class="list-group">
+                    {% for related in product.related() %}
+                        <li class="list-group-item">
+                            {{ related.name }}
+                            <small class="text-muted">{{ related.score }}</small>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
