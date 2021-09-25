@@ -4,13 +4,14 @@ import business
 
 app = Flask(__name__)
 
+me = 100688
+
 # storage = storage.MockStorage()
 storage = storage.FileStorage("resources/")
 
-
 @app.route("/")
 def index():
-    return render_template("index.html", carts=storage.carts(100688), timeline=business.get_timeline(storage.users()))  # TODO
+    return render_template("index.html", carts=storage.carts(me), timeline=business.get_timeline(storage.user(me)))  # TODO
 
 
 @app.route("/cart/<int:cart_id>")

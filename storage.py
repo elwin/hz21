@@ -38,7 +38,7 @@ class MockStorage:
 def read_data(path: str):
     product_list = {}
     product_path = path + "products/"
-    for filename in os.listdir(product_path)[:1000]:
+    for filename in os.listdir(product_path)[:2000]:
         with open(product_path + filename) as f:
             data = json.load(f)
             try:
@@ -57,9 +57,12 @@ def read_data(path: str):
 
     shopping_path = path + "shopping_cart/"
 
-    for filename in os.listdir(shopping_path)[:1]:
+    for filename in os.listdir(shopping_path)[:10]:
         with open(shopping_path + filename) as f:
             r = csv.reader(f, delimiter=',')
+
+            customers = {}
+
             for i, row in enumerate(r):
                 if i == 0:
                     continue
@@ -71,6 +74,8 @@ def read_data(path: str):
                 if customer_id not in user_list:
                     user_list[customer_id] = users.User(f"xyz_{customer_id}", [])
                 user = user_list[customer_id]
+                
+                customers[customer_id] = user
 
                 cart_id = int(row[2])
                 if cart_id not in cart_list:
@@ -102,6 +107,11 @@ def read_data(path: str):
                 #         "ArtikelID": int(row[8]),
                 #         "Menge": float(row[9]),
                 #     })
+            
+            # sort cards
+            for id, customer in customers.items():
+                customer.carts = sorted(customer.carts, key=lambda cart: cart.date)
+            print(0)
 
     return user_list
 

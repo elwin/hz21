@@ -17,28 +17,12 @@
 
     <script>
 
-        // MOCK DATA
+        let user_data = {{ timeline | tojson }};
+        const numWeeks = 10;
+        let currentWeek = user_data['current_week']
+        let friends = user_data['friends']
 
-        friends = [
-            {
-                id: 0,
-                name: 'Daniela',
-                score_hist: [95, 98, 55, 69, 57, 49, 77, 97, 63, 92]
-            },
-            {
-                id: 1,
-                name: 'Elwin',
-                score_hist: [96, 94, 69, 53, 65, 65, 76, 92, 92, 75]
-            },
-            {
-                id: 2,
-                name: 'Till',
-                score_hist: [54, 32, 31, 29, 26, 54, 29, 60, 82, 26]
-            }
-        ]
-
-        // ---------
-
+        /*
         // https://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php
         Date.prototype.getWeekNumber = function () {
             var d = new Date(Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()));
@@ -47,6 +31,7 @@
             var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
             return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
         }
+        */
 
         // https://stackoverflow.com/questions/10014271/generate-random-color-distinguishable-to-humans
         function selectColor(number) {
@@ -54,8 +39,7 @@
             return `hsl(${hue},50%,75%)`;
         }
 
-        const numWeeks = 10;
-        const currentWeek = new Date().getWeekNumber();
+        // const currentWeek = new Date().getWeekNumber();
 
         weekNrs = [];
         for (let i = currentWeek - numWeeks + 1; i <= currentWeek; i++) {
