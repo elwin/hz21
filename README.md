@@ -1,3 +1,3 @@
-1. Have python 3.7 or so installed
-2. Install django
-3. `python manage.py runserver`
+1. Make sure python (3.7 or so) is installed
+2. Install flask
+3. `FLASK_APP=main flask run`
