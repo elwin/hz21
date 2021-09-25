@@ -12,6 +12,18 @@
     <!-- Chart.js -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 
+    <style>
+        a {
+            color: black;
+        }
+        a:hover{
+            color:#0a58ca;
+        }
+
+        .nav-link {
+            color: black;
+        }
+    </style>
     <title>Migros HackZurich</title>
 </head>
 <body>
@@ -22,6 +34,11 @@
             <img
                     src="{{ url_for('static', filename='bee_logo_text.svg') }}"
                     class="img-fluid"
+                    style="height: 32px"
+            >
+            <img
+                    src="{{ url_for('static', filename='bee_logo.png') }}"
+                    class="img-fluid float-right"
                     style="height: 32px"
             >
         </a>

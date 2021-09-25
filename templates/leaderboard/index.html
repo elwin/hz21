@@ -1,18 +1,26 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Hello
+    Friends Leaderboard
 {% endblock %}
 
 {% block content %}
-
-    <ul class="list-group">
-        {% for id, user in users.items() %}
-            <li class="list-group-item">
-                {{ user.name }} {{ user.score() }}
-            </li>
-        {% endfor %}
-    </ul>
-
-
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Score</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for id, user in users.items() %}
+                <tr>
+                    <th scope="row">RANK</th>
+                    <td>{{user.name}}</td>
+                    <td>{{user.score()}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

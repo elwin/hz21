@@ -1,6 +1,6 @@
 import carts
 from typing import List
-
+from statistics import mean
 
 class User:
     def __init__(self, user_id: int, name: str, carts: List[carts.Cart]):
@@ -12,4 +12,4 @@ class User:
         self.carts.append(cart)
 
     def score(self) -> int:
-        return sum([cart.score() for cart in self.carts])
+        return mean([cart.score() for cart in self.carts])

@@ -1,7 +1,7 @@
 import datetime
 from typing import List
 import storage
-
+from statistics import mean
 
 class Product:
     def __init__(self, name: str, price: int, score: int,  img_link: str, related_ids: List[int]):
@@ -32,7 +32,7 @@ class Cart:
         self.products = products
 
     def score(self) -> int:
-        return sum(product.score for product in self.products)
+        return round(mean(product.score for product in self.products), 1)
 
     def add_product(self, product: Product):
         self.products.append(product)
