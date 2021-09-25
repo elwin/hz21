@@ -95,6 +95,13 @@ def read_data(path: str):
 
                 cart_id = 1000000*user_id+int(row[2])
 
+                product_id = int(row[8])
+                product = product_list.get(product_id)
+
+                # not all products might be registered
+                if product is None:
+                    continue
+
                 # register new carts
                 if cart_id not in cart_list:
                     cart_list[cart_id] = carts.Cart(
@@ -106,13 +113,6 @@ def read_data(path: str):
                     user.add_cart(cart_list[cart_id])
 
                 cart = cart_list[cart_id]
-
-                product_id = int(row[8])
-                product = product_list.get(product_id)
-
-                # not all products might be registered
-                if product is None:
-                    continue
 
                 # skip repetitions
                 if product in cart.products:
