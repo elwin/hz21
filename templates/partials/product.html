@@ -1,15 +1,18 @@
-<div class="list-group-item card flex-fill" style="min-width: 18rem">
-    <span class="badge rounded-pill px-3 {{ product.get_bg_color() }}">{{ product.score }}</span>
+<div class="card p-0">
 
-    <div>
-        <img
-                class="card-img-top"
-                style="max-height: 128px; object-fit: contain;"
-                src={{ product.img_link }}
-        >
+    <div class="card-body flex-fill" style="margin-bottom: -24px">
+        <span class="float-right badge rounded-pill px-3 {{ product.get_bg_color() }}">{{ product.score }}</span>
     </div>
-    <div class="card-body">
+
+    <img
+            class="card-img-top p-3"
+            style="height: 150px; object-fit: contain;"
+            src={{ product.img_link }}
+    >
+
+    <div class="card-body bg-light">
+
         <span class="card-text align-baseline text-truncate" style="display: block;">{{ product.name }}</span>
-        <span class="badge price-badge">{{'{:.2f}'.format(product.price / 100) }} CHF</span>
+        <span class="badge price-badge">{{ '{:.2f}'.format(product.price / 100) }} CHF</span>
     </div>
 </div>
