@@ -4,14 +4,16 @@
 
 {% block content %}
 
+    <h1>Stats</h1>
+
     <canvas id="myChart"></canvas>
 
     <script>
 
         let user_data = {{ timeline | tojson }};
-        const numWeeks = 10;
+        const numWeeks = user_data['weekly_scores'].length;
         let currentWeek = user_data['current_week']
-        let friends = user_data['friends']
+        let friends_scores = user_data['friends_scores']
 
         /*
         // https://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php
@@ -43,7 +45,7 @@
 
         const datasets = [{
             label: 'Your Score History',
-            data: [65, 59, 80, 81, 56, 55, 40, 35, 67, 50],
+            data: user_data['weekly_scores'],
             fill: true,
             borderColor: selectColor(0),
             tension: 0.15
@@ -51,16 +53,16 @@
 
         // add friends
         let ctr = 0;
-        for (var i = 0; i < friends.length; i++) {
-            let f = friends[i];
+        for (const [name, scores] of Object.entries(friends_scores)) {
             datasets.push({
-                label: f.name,
-                data: f.score_hist,
+                label: name,
+                data: scores,
                 fill: false,
                 borderColor: selectColor(++ctr),
                 tension: 0.15
             })
         }
+        console.log(datasets);
 
         const data = {
             labels: labels,
@@ -81,7 +83,7 @@
                         // }
                     },
                     yAxis: {
-                        type: 'logarithmic',
+                        //type: 'logarithmic',
                         // text: 'y axis',
                         position: 'left'
                     }

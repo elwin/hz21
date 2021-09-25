@@ -4,7 +4,7 @@ import business
 
 app = Flask(__name__)
 
-me = 100688
+me = 34390  # 100688
 
 # storage = storage.MockStorage()
 storage = storage.FileStorage("resources/")

@@ -7,12 +7,52 @@ import carts
 import datetime
 
 
+chips = carts.Product("Chips", 200, 5,
+                      "https://image.migros.ch/2017-large/fa352f7d033713ba58e96e7e05c4b04060f7fe9f/m-classic-xl-chips-nature-400g.jpg",
+                      [])
+apple = carts.Product("Apple", 150, 3,
+                      "https://image.migros.ch/2017-large/c86784443644854787947603e2c054b0f9927605/aepfel-jazz.jpg", [])
+potatoes = carts.Product("Potatoes", 350, 1,
+                         "https://image.migros.ch/2017-large/5b73957e3e40f7f4ba5eafb0eefa1c87683798fa/kartoffeln-baked-potatoes.jpg",
+                         [])
+
+mock_carts = [
+    carts.Cart((0, 0), datetime.date(2021, 9, 1), [chips, apple], "MM Sarnen-Center"),
+    carts.Cart((1, 0), datetime.date(2021, 9, 2), [chips, potatoes], "M Schöftland"),
+]
+
+
+class MockStorage:
+    def __init__(self):
+        return
+
+    def users(self):
+        return [
+            users.User(0, "Dani", self.carts()),
+            users.User(1, "Leon", self.carts()),
+            users.User(2, "Till", self.carts()),
+            users.User(3, "Elwin", self.carts()),
+        ]
+
+    def carts(self, user_id: int = 0):
+        return {
+            0: mock_carts[0],
+            1: mock_carts[1],
+        }
+
 def read_data(path: str):
+
+    user_list = {}
+    cart_list = {}
     product_list = {}
+
+    #   PRODUCTS
+
     product_path = path + "products/"
+
     for filename in os.listdir(product_path)[:5000]:
-        with open(product_path + filename) as f:
-            data = json.load(f)
+        with open(product_path + filename, encoding="utf-8") as f:
+            data = json.loads(f.read())
             try:
                 product_list[int(data['id'])] = carts.Product(
                     name=data['name'],
@@ -23,54 +63,73 @@ def read_data(path: str):
                 )
             except KeyError:
                 pass
-            except ValueError:
-                pass
+            # except ValueError:
+            #     pass
 
-    user_list = {}
-    cart_list = {}
+    #   CARTS AND CUSTOMERS
 
-    shopping_path = path + "shopping_cart/"
+    shopping_cart_path = path + "shopping_cart_new/"
 
-    for filename in os.listdir(shopping_path)[:10]:
-        with open(shopping_path + filename) as f:
+    for filename in os.listdir(shopping_cart_path)[:2]:
+        with open(shopping_cart_path + filename) as f:
             r = csv.reader(f, delimiter=',')
-
-            customers = {}
-
             for i, row in enumerate(r):
-                if i == 0:
-                    continue
 
-                if i == 1000:
-                    break
+                if i == 0: continue  # header
 
-                customer_id = int(row[1])
-                if customer_id not in user_list:
-                    user_list[customer_id] = users.User(customer_id, names.get_random(), [])
-                user = user_list[customer_id]
+                user_id = int(row[1])
 
-                customers[customer_id] = user
+                # register new users
+                if user_id not in user_list:
 
-                cart_id = int(row[0])
+                    # only register 5 users
+                    if len(user_list) == 5:  # only take 5 users for now
+                        continue
+
+                    user_list[user_id] = users.User(
+                        user_id=user_id,
+                        name=['Elwin', 'Daniela', 'Till', 'Leon', 'Ueli'][len(user_list)],  # f"xyz_{customer_id}"
+                        carts=[]
+                    )
+
+                user = user_list[user_id]
+
+                cart_id = 1000000*user_id+int(row[2])
+
+                # register new carts
                 if cart_id not in cart_list:
                     cart_list[cart_id] = carts.Cart(
-                        cart_id,
-                        datetime.datetime.strptime(row[6], "%Y-%m-%d"),
-                        row[4][3:],  # exclude canton abbreviation
-                        [],
+                        cart_id=cart_id,
+                        date=datetime.datetime.strptime(row[6], "%Y-%m-%d"),
+                        location=row[4][3:],  # exclude canton abbreviation
+                        products=[],
                     )
                     user.add_cart(cart_list[cart_id])
+
                 cart = cart_list[cart_id]
 
                 product_id = int(row[8])
-                if product_id not in product_list:
+                product = product_list.get(product_id)
+
+                # not all products might be registered
+                if product is None:
                     continue
 
-                cart.add_product(product_list[product_id])
+                # skip repetitions
+                if product in cart.products:
+                    continue
 
-            # sort cards
-            for id, customer in customers.items():
-                customer.carts = sorted(customer.carts, key=lambda cart: cart.date)
+                cart.add_product(product)
+
+            # # sort carts
+            # for id, customer in user_list.items():
+            #     customer.carts = sorted(customer.carts, key=lambda cart: cart.date)
+
+    # add friends
+    for id1, u1 in user_list.items():
+        for id2, u2 in user_list.items():
+            if id1 != id2:
+                u1.friends.append(u2)
 
     user_list = {k: user_list[k] for k in list(user_list)[:10]}
 
