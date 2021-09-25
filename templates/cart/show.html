@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Cart {{ cart.date.strftime("%a, %d %b %Y") }}
-    <span class="badge rounded-pill bg-success">Score: {{ cart.score() }}</span>
+    Purchase at {{ cart.location }}
+    <span class="badge rounded-pill px-4 {{ cart.get_bg_color() }}">{{ cart.score() }}</span>
+    <br>
+    <small class="text-muted">{{ cart.date.strftime("%a, %d %b %Y") }}</small>
+
 {% endblock %}
 
 {% block content %}

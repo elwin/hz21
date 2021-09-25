@@ -36,3 +36,12 @@ class Cart:
 
     def add_product(self, product: Product):
         self.products.append(product)
+
+    def get_bg_color(self) -> str:
+        if self.score() >= 4:
+            return "bg-success"
+        if self.score() >= 2:
+            return "bg-warning"
+        if self.score() >= 1:
+            return "bg-danger"
+        return "bg-secondary"

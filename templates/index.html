@@ -95,11 +95,14 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title">
-                    <a href="{{ url_for("cart", cart_id=cart.id) }}">
-                        Purchase at {{ cart.location }} on {{ cart.date.strftime("%a, %d %b %Y") }}
-                    </a>
-                    <span class="badge rounded-pill bg-success">Score: {{ cart.score() }}</span>
+                    Purchase at {{ cart.location }}
+                    <span class="badge rounded-pill {{ cart.get_bg_color() }} px-3">{{ cart.score() }}</span>
+
+                    <br>
+                    <small class="text-muted">{{ cart.date.strftime("%a, %d %b %Y") }}</small>
+
                 </h5>
+
 
                 <ul class="list-group list-group-horizontal" style="overflow-x: auto; white-space: nowrap;">
                     {% for product in cart.products %}
@@ -107,6 +110,12 @@
                         {% include 'partials/product.html' %}
                     {% endfor %}
                 </ul>
+
+                <a class="btn btn-secondary mt-3"
+                   href="{{ url_for("cart", cart_id=cart.id) }}"
+                >
+                    More details
+                </a>
 
             </div>
         </div>
