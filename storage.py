@@ -2,6 +2,7 @@ import csv
 import json
 import os
 
+import names
 import users
 import carts
 import datetime
@@ -79,7 +80,7 @@ def read_data(path: str):
 
                 customer_id = int(row[1])
                 if customer_id not in user_list:
-                    user_list[customer_id] = users.User(customer_id, f"xyz_{customer_id}", [])
+                    user_list[customer_id] = users.User(customer_id, names.get_random(), [])
                 user = user_list[customer_id]
 
                 customers[customer_id] = user
