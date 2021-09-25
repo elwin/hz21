@@ -16,8 +16,8 @@ potatoes = carts.Product("Potatoes", 350, 1,
                          [])
 
 mock_carts = [
-    carts.Cart(0, datetime.date(2021, 9, 1), [chips, apple], "MM Sarnen-Center"),
-    carts.Cart(1, datetime.date(2021, 9, 2), [chips, potatoes], "M Schöftland"),
+    carts.Cart((0, 0), datetime.date(2021, 9, 1), [chips, apple], "MM Sarnen-Center"),
+    carts.Cart((1, 0), datetime.date(2021, 9, 2), [chips, potatoes], "M Schöftland"),
 ]
 
 
@@ -41,9 +41,16 @@ class MockStorage:
 
 
 def read_data(path: str):
+
+    user_list = {}
+    cart_list = {}
     product_list = {}
+
+    #   PRODUCTS
+
     product_path = path + "products/"
-    for filename in os.listdir(product_path)[:3000]:
+
+    for filename in os.listdir(product_path)[:5000]:
         with open(product_path + filename, encoding="utf-8") as f:
             data = json.loads(f.read())
             try:
@@ -56,57 +63,67 @@ def read_data(path: str):
                 )
             except KeyError:
                 pass
-            except ValueError:
-                pass
+            # except ValueError:
+            #     pass
 
-    user_list = {}
-    cart_list = {}
+    #   CARTS AND CUSTOMERS
 
-    shopping_path = path + "shopping_cart/"
+    shopping_cart_path = path + "shopping_cart_new/"
 
-    for filename in os.listdir(shopping_path):
-        with open(shopping_path + filename) as f:
+    for filename in os.listdir(shopping_cart_path)[:2]:
+        with open(shopping_cart_path + filename) as f:
             r = csv.reader(f, delimiter=',')
-
             for i, row in enumerate(r):
-                if i == 0:  # header row
-                    continue
 
-                if i == 3000:   # cutoff
-                    break
+                if i == 0: continue  # header
 
-                customer_id = int(row[1])
-                if customer_id not in user_list:
+                user_id = int(row[1])
+
+                # register new users
+                if user_id not in user_list:
+
+                    # only register 5 users
                     if len(user_list) == 5:  # only take 5 users for now
                         continue
-                    user_list[customer_id] = users.User(
-                        user_id=customer_id,
+
+                    user_list[user_id] = users.User(
+                        user_id=user_id,
                         name=['Elwin', 'Daniela', 'Till', 'Leon', 'Ueli'][len(user_list)],  # f"xyz_{customer_id}"
-                        carts=[])
+                        carts=[]
+                    )
 
-                user = user_list[customer_id]
+                user = user_list[user_id]
 
-                cart_id = int(row[0])
+                cart_id = 1000000*user_id+int(row[2])
+
+                # register new carts
                 if cart_id not in cart_list:
                     cart_list[cart_id] = carts.Cart(
-                        cart_id,
-                        datetime.datetime.strptime(row[6], "%Y-%m-%d"),
-                        row[4][3:],  # exclude canton abbreviation
-                        [],
+                        cart_id=cart_id,
+                        date=datetime.datetime.strptime(row[6], "%Y-%m-%d"),
+                        location=row[4][3:],  # exclude canton abbreviation
+                        products=[],
                     )
                     user.add_cart(cart_list[cart_id])
-                    print(f'adding to user {user} with id {customer_id}')
+
                 cart = cart_list[cart_id]
 
                 product_id = int(row[8])
-                if product_id not in product_list:
+                product = product_list.get(product_id)
+
+                # not all products might be registered
+                if product is None:
                     continue
 
-                cart.add_product(product_list[product_id])
+                # skip repetitions
+                if product in cart.products:
+                    continue
 
-            # sort carts
-            for id, customer in user_list.items():
-                customer.carts = sorted(customer.carts, key=lambda cart: cart.date)
+                cart.add_product(product)
+
+            # # sort carts
+            # for id, customer in user_list.items():
+            #     customer.carts = sorted(customer.carts, key=lambda cart: cart.date)
 
     # add friends
     for id1, u1 in user_list.items():

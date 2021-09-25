@@ -11,7 +11,7 @@
     <script>
 
         let user_data = {{ timeline | tojson }};
-        const numWeeks = 10;
+        const numWeeks = user_data['weekly_scores'].length;
         let currentWeek = user_data['current_week']
         let friends_scores = user_data['friends_scores']
 
@@ -45,7 +45,7 @@
 
         const datasets = [{
             label: 'Your Score History',
-            data: [65, 59, 80, 81, 56, 55, 40, 35, 67, 50],
+            data: user_data['weekly_scores'],
             fill: true,
             borderColor: selectColor(0),
             tension: 0.15
@@ -83,7 +83,7 @@
                         // }
                     },
                     yAxis: {
-                        type: 'logarithmic',
+                        //type: 'logarithmic',
                         // text: 'y axis',
                         position: 'left'
                     }

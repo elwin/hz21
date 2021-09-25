@@ -43,10 +43,10 @@ def get_timeline(user: users.User):
 
     current_week = get_week(carts[-1].date) if len(carts) > 0 else 0  # get_week(datetime.datetime.today())
 
-    weekly_scores = get_user_weeks_score(user, 10, current_week)
+    weekly_scores = get_user_weeks_score(user, 5, current_week)
 
     friends_scores = {
-        friend.name: get_user_weeks_score(friend, 10, current_week)
+        friend.name: get_user_weeks_score(friend, 5, current_week)
         for friend in user.friends
     }
 
