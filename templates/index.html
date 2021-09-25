@@ -3,6 +3,10 @@
 {% block title %}Index{% endblock %}
 
 {% block content %}
+    <pre>
+        {{ timeline | tojson }}
+    </pre
+
     <h1>Carts</h1>
 
     {% for cart in carts %}
