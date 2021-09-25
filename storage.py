@@ -6,7 +6,6 @@ import users
 import carts
 import datetime
 
-
 chips = carts.Product("Chips", 200, 5,
                       "https://image.migros.ch/2017-large/fa352f7d033713ba58e96e7e05c4b04060f7fe9f/m-classic-xl-chips-nature-400g.jpg",
                       [])
@@ -132,7 +131,6 @@ def read_data(path: str):
                 u1.friends.append(u2)
 
     user_list = {k: user_list[k] for k in list(user_list)[:10]}
-
     return user_list, cart_list, product_list
 
 
@@ -140,7 +138,6 @@ class FileStorage:
     def __init__(self, path: str):
         self.path = path
         self.user_list, self.cart_list, self.products = read_data(path)
-
         return
 
     def users(self):

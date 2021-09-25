@@ -1,5 +1,5 @@
 import datetime
-from typing import List
+from typing import List, Tuple
 import storage
 from statistics import mean
 
@@ -34,7 +34,7 @@ class Cart:
     def score(self) -> int:
         return round(mean(product.score for product in self.products), 1)
 
-    def score_sum(self) -> (int, int):
+    def score_sum(self) -> Tuple[int, int]:
         return sum(product.score for product in self.products), len(self.products)
 
     def add_product(self, product: Product):
