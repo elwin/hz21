@@ -3,7 +3,8 @@ from typing import List
 
 
 class User:
-    def __init__(self, name: str, carts: List[carts.Cart]):
+    def __init__(self, user_id: int, name: str, carts: List[carts.Cart]):
+        self.id = user_id
         self.name = name
         self.carts = carts
 

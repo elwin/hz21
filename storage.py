@@ -27,10 +27,10 @@ class MockStorage:
 
     def users(self):
         return [
-            users.User("Dani", self.carts()),
-            users.User("Leon", self.carts()),
-            users.User("Till", self.carts()),
-            users.User("Elwin", self.carts()),
+            users.User(0, "Dani", self.carts()),
+            users.User(1, "Leon", self.carts()),
+            users.User(2, "Till", self.carts()),
+            users.User(3, "Elwin", self.carts()),
         ]
 
     def carts(self, user_id: int = 0):
@@ -79,7 +79,7 @@ def read_data(path: str):
 
                 customer_id = int(row[1])
                 if customer_id not in user_list:
-                    user_list[customer_id] = users.User(f"xyz_{customer_id}", [])
+                    user_list[customer_id] = users.User(customer_id, f"xyz_{customer_id}", [])
                 user = user_list[customer_id]
 
                 customers[customer_id] = user
