@@ -6,9 +6,9 @@ import users
 import carts
 import datetime
 
-chips = carts.Product("Chips", 200, 5)
-apple = carts.Product("Apple", 150, 3)
-potatoes = carts.Product("Potatoes", 350, 1)
+chips = carts.Product("Chips", 200, 5, [])
+apple = carts.Product("Apple", 150, 3, [])
+potatoes = carts.Product("Potatoes", 350, 1, [])
 
 mock_carts = [
     carts.Cart(0, datetime.date(2021, 9, 1), [chips, apple], "MM Sarnen-Center"),
@@ -46,6 +46,7 @@ def read_data(path: str):
                     name=data['name'],
                     price=int(data['price']['item']['price'] * 100),
                     score=int(data['m_check2']['carbon_footprint']['ground_and_sea_cargo']['rating']),
+                    related_ids=list(map(int, data['related_products']['purchase_recommendations']['product_ids']))
                 )
             except KeyError:
                 pass
@@ -104,13 +105,14 @@ def read_data(path: str):
                 #         "Menge": float(row[9]),
                 #     })
 
-    return user_list, cart_list
+    return user_list, cart_list, product_list
 
 
 class FileStorage:
     def __init__(self, path: str):
         self.path = path
-        self.user_list, self.cart_list = read_data(path)
+        self.user_list, self.cart_list, self.products = read_data(path)
+
         return
 
     def users(self):
@@ -119,5 +121,9 @@ class FileStorage:
     def user(self, user_id: int):
         return self.user_list[user_id]
 
-    def carts(self, cart_id: int):
+    def get_carts(self, cart_id: int):
         return self.cart_list[cart_id]
+
+    def get_related(self, product: carts.Product):
+        return [self.products.get(key) for key in product.related_ids if key in self.products]
+

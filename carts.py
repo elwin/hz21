@@ -2,11 +2,13 @@ import datetime
 from typing import List
 import storage
 
+
 class Product:
-    def __init__(self, name: str, price: int, score: int):
+    def __init__(self, name: str, price: int, score: int, related_ids: List[int]):
         self.name = name
         self.price = price
         self.score = score
+        self.related_ids = related_ids
 
     def related(self):
         return [storage.chips, storage.apple]

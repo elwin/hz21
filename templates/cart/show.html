@@ -17,7 +17,7 @@
                 </p>
 
                 <ul class="list-group">
-                    {% for related in product.related() %}
+                    {% for related in storage.get_related(product) %}
                         <li class="list-group-item">
                             {{ related.name }}
                             <small class="text-muted">{{ related.score }}</small>
