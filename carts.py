@@ -32,7 +32,6 @@ class Cart:
         self.products = products
 
     def score(self) -> int:
-        print(len(self.products))
         return round(mean(product.score for product in self.products), 1)
 
     def score_sum(self) -> Tuple[int, int]:
