@@ -23,7 +23,7 @@ storage = storage.FileStorage("resources/")
 #     ]
 # )
 
-shopping_list_cart = storage.get_cart(44881006881)
+shopping_list_cart = storage.get_cart(108928000006)
 
 
 @app.route("/")

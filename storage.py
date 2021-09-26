@@ -36,7 +36,7 @@ def read_data(path: str):
 
     #   CARTS AND CUSTOMERS
 
-    shopping_cart_path = path + "shopping_cart_new/"
+    shopping_cart_path = path + "shopping_cart/"
 
     for filename in ["Abverkaufdaten_trx_202001.csv", "Abverkaufdaten_trx_202002.csv"]:
         with open(shopping_cart_path + filename) as f:
@@ -77,33 +77,33 @@ def read_data(path: str):
 
     user_list = {
         0: users.User(0, "Dani", [
-            cart_list[74311034733],
-            cart_list[34391034664],
-            cart_list[90472074215],
-            cart_list[94291053671],
+            cart_list[107748000001],
+            cart_list[108928000006],
+            cart_list[106563000002],
+            cart_list[102111000004],
         ]),
         1: users.User(1, "Till", [
-            cart_list[44881089286],
-            cart_list[44881089281],
-            cart_list[34391000074],
-            cart_list[94291058155],
+            cart_list[108204000004],
+            cart_list[103080000001],
+            cart_list[107421000005],
+            cart_list[103436000003],
         ]),
         2: users.User(2, "Leon", [
-            cart_list[90472041802],
-            cart_list[90472036484],
-            cart_list[74311066213],
-            cart_list[94291032991],
+            cart_list[103466000004],
+            cart_list[108646000006],
+            cart_list[105367000001],
+            cart_list[105367000003],
         ]),
         3: users.User(3, "Elwin", [
-            cart_list[74311074803],
-            cart_list[34391082044],
-            cart_list[34391030801],
+            cart_list[107480000006],
+            cart_list[102186000004],
+            cart_list[102745000002],
         ]),
         4: users.User(4, "Ueli", [
-            cart_list[94291065672],
-            cart_list[74311002101],
-            cart_list[90472077481],
-            cart_list[94291098884],
+            cart_list[109221000008],
+            cart_list[109091000003],
+            cart_list[108928000001],
+            cart_list[104180000002],
         ]),
     }
 
