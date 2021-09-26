@@ -4,9 +4,10 @@
 
 {% block content %}
 
-    <h1>Stats</h1>
+    <h3>Stats</h3>
 
-    <canvas id="myChart"></canvas>
+    <canvas id="scoreHistChart"></canvas>
+    <canvas id="rankingChart"></canvas>
 
     <script>
 
@@ -69,25 +70,45 @@
             datasets: datasets
         };
 
-        var ctx = document.getElementById("myChart").getContext('2d');
-        var myChart = new Chart(ctx, {
+        var ctx = document.getElementById("scoreHistChart").getContext('2d');
+        var scoreHistChart = new Chart(ctx, {
             type: 'line',
             data: data,
             options: {
                 scales: {
                     xAxis: {
-                        // text: 'x axis',
                         position: 'bottom',
-                        // grid: {
-                        //     color: '#77cc55'
-                        // }
                     },
                     yAxis: {
-                        //type: 'logarithmic',
-                        // text: 'y axis',
                         position: 'left'
                     }
                 }
+            }
+        });
+
+        rankingData = user_data['ranking']
+
+        barColors = [];
+        bcctr = 0;
+        for(let [key, value] of Object.entries(rankingData)){
+            barColors.push(selectColor(++bcctr));
+        }
+
+        rankingChartData = {
+            labels: Object.keys(rankingData),
+            datasets: [{
+                label: 'Friends Ranking',
+                data: Object.values(rankingData),
+                backgroundColor: barColors,
+            }]
+        }
+
+        var ctx2 = document.getElementById("rankingChart").getContext('2d');
+        var rankingChart = new Chart(ctx2, {
+            type: 'bar',
+            data: rankingChartData,
+            options: {
+                indexAxis: 'x',
             }
         });
 

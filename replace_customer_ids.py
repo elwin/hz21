@@ -2,13 +2,6 @@ import csv
 import os
 import random
 
-# default_customers = [
-#     100688,
-#     101324,
-#     101361,
-#     101789,
-#     102576,
-# ]
 
 default_customers = [
     94290,
