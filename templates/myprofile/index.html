@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    My Profile
+  Hi, Elwin!
 {% endblock %}
 
 {% block content %}
@@ -10,13 +10,13 @@
     <div class="site-wrapper-inner">
 
       <div class="container">
-
-        <div class="masthead clearfix">
+        <!--
+                  <div class="masthead clearfix">
           <div class="container inner">
             <a itemprop="image">
-              <img style="border-radius:50%" src="{{ url_for('static', filename='elwin.jpg') }}" width="260" height="260">
+              <img style="border-radius:50%" src="{{ url_for('static', filename='elwin.jpg') }}" width="100" height="100">
             </a>
-            <h3 class="masthead-brand">Elwin S</h3>
+            <h3 class="masthead-brand">placeholder text</h3>
           </div>
         </div>
 
@@ -27,9 +27,46 @@
             <a href="#" class="btn btn-lg btn-default">Learn more</a>
           </p>
         </div>
-
+        -->
+        {% include 'partials/character.html' %}
       </div>
+      <div class="container">
+          <h3>This Week's Challenges:</h3>
+          <ul class="list-group">
+            <li class="list-group-item challenge-item">
+              <span class="badge greencoin-badge rounded-pill">10</span>
+              Buy twice as many 5-score items as other items.
+            </li>
+            <li class="list-group-item challenge-item">
+              <span class="badge greencoin-badge rounded-pill">20</span>
+              Be vegetarian for the week, don't buy any meat.
+            </li>
+            <li class="list-group-item challenge-item">
+              <span class="badge greencoin-badge rounded-pill">5</span>
+              Some other challenge!
+            </li>
+          </ul>
+      </div>
+      <div class="container">
+        <h3>Your Friends:</h3>
+        <ul class="list-group">
+          <li class="list-group-item challenge-item">
+            <span class="badge greencoin-badge rounded-pill">10</span>
+            Buy twice as many 5-score items as other items.
+          </li>
+          <li class="list-group-item challenge-item">
+            <span class="badge greencoin-badge rounded-pill">20</span>
+            Be vegetarian for the week, don't buy any meat.
+          </li>
+          <li class="list-group-item challenge-item">
+            <span class="badge greencoin-badge rounded-pill">5</span>
+            Some other challenge!
+          </li>
+        </ul>
+    </div>
 
+    </div>
+    
     </div>
 
   </div>
