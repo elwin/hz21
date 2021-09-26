@@ -6,11 +6,18 @@ Hi, We are "bee COOl", and our goal is to encourage people to be more sustainabl
 
 (Data - problem)
 
-Our survey shows that 90% of the people are concerned about climate change, but only 48% of those think about carbon emissions while shopping. Going green is often associated with great sacrifice or an expensive lifestyle. We are here to show that this must not be true, and going green can actually be affordable. 
+Our survey shows that 90% of the people are concerned about climate change, but only 48% of those think about carbon emissions while shopping. Going green is often associated with great sacrifice or an expensive lifestyle. We are here to show that this doesn't have to be true, and going green can actually be affordable. 
 
 (Storytelling and Platform presentation)
 
-Now, meet bee. She's like a pet, and needs to be checked every time you go shopping. You'll make her evolve by simply creating your sustainable shopping list. She shows you how much more you would spend for having greener alternatives of the same or similar products. For every unit of CO2 saved, you can acumulate carboncoins, retrievable with any of our partners. You make Bee Cool by reaching the top in the leaderboard with your friends.
+Now, meet bee. She's like a pet, and needs to be checked every time you go shopping. You'll make her evolve by simply creating your shopping list. Our algorithm shows you how much more you would spend for having greener alternatives of the same or similar products. For every unit of CO2 saved, you can acumulate carboncoins, retrievable with any of our partners.
+
+On this page you can keep track of your progress and compare your performance with your friends and family. Make BeeCool by reaching the top of the leaderboard.
+
+You can also take a look at your purchasing history and how sustainable they were.
+
+Oh! Bee just notified us for a new purchase we've done today! We've leveled up as we bought very sustainable products! 
+
 
 (Business plan)
 
