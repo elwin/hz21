@@ -6,27 +6,27 @@
 
     <h3>Stats</h3>
 
-    <canvas id="scoreHistChart"></canvas>
-    <canvas id="rankingChart"></canvas>
+    <canvas id="scoreHistChart" class="mb-4"></canvas>
+    <canvas id="rankingChart" class="mb-4"></canvas>
 
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-6">
             <div class="card">
-                <div class="card-header">
-                abs score
+                <div class="card-header bg-gray-light">
+                    abs score
                 </div>
                 <div class="card-body">
-                <h5 class="card-title">{{ user.abs_score_last_5_weeks() }}</h5>
+                    <h5 class="card-title">{{ user.abs_score_last_5_weeks() }}</h5>
                 </div>
             </div>
         </div>
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                avg score
+                    avg score
                 </div>
                 <div class="card-body">
-                <h5 class="card-title">{{ user.avg_score_last_5_weeks() }}</h5>
+                    <h5 class="card-title">{{ user.avg_score_last_5_weeks() }}</h5>
                 </div>
             </div>
         </div>
@@ -113,7 +113,7 @@
 
         barColors = [];
         bcctr = 0;
-        for(let [key, value] of Object.entries(rankingData)){
+        for (let [key, value] of Object.entries(rankingData)) {
             barColors.push(selectColor(++bcctr));
         }
 
