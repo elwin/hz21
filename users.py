@@ -48,7 +48,7 @@ class User:
             for week in range(current_week - n + 1, current_week + 1)
         ]
 
-        return weekly_scores
+        return [0 if x is None else x for x in weekly_scores]
 
     def abs_score_last_5_weeks(self):
         return round(sum(self.weekly_score(5, get_week(self.carts[-1].date))), 3)
