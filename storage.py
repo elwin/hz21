@@ -135,13 +135,21 @@ class FileStorage:
         return [p for p in self.get_related(product) if p.score > product.score]
 
     def get_max_score(self, cart: carts.Cart) -> int:
-        score = 0
+        return self.get_max_cart(carts).score()
+
+    def get_max_cart(self, cart: carts.Cart) -> carts.Cart:
+        products = []
 
         for product in cart.products:
             related = self.get_related_higher(product)
             if len(related) > 0:
-                score += related[0].score
+                products.append(related[0])
             else:
-                score += product.score
+                products.append(product)
 
-        return score
+        return carts.Cart(
+            cart_id=-1,
+            location="adsf",
+            date=datetime.date.today(),
+            products=products,
+        )

@@ -47,3 +47,6 @@ class Cart:
         if self.score() >= 1:
             return "bg-danger"
         return "bg-secondary"
+
+    def cost(self) -> int:
+        return sum([product.price for product in self.products])

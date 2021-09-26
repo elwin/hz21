@@ -13,6 +13,11 @@
             border-right: 1px dashed var(--bs-gray-dark);
         }
     </style>
+
+    <div class="alert alert-success" role="alert">
+        You can gain <b>{{ savings }}</b> points by spending only <b>CHF {{ cost }}</b> more!
+    </div>
+
     {% for product in shopping_list.products %}
         <div class="card mb-4">
             <div class="card-body">
@@ -30,12 +35,12 @@
                             </div>
                         {% endfor %}
                     {% else %}
-                    <div class="product-width" style="text-align: center;">
-                        <div class="card h-100 pt-5">
-                            <b>Nothing here!</b>
-                            <p>No better alternatives found :)</p>
+                        <div class="product-width" style="text-align: center;">
+                            <div class="card h-100 pt-5">
+                                <b>Nothing here!</b>
+                                <p>No better alternatives found :)</p>
+                            </div>
                         </div>
-                    </div>    
                     {% endif %}
 
 

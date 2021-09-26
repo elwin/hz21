@@ -11,19 +11,19 @@ me = 0  # 100688
 # storage = storage.MockStorage()
 storage = storage.FileStorage("resources/")
 
-# shopping_list_cart = Cart(
-#     cart_id=-1,
-#     date=datetime.date.today(),
-#     location="asdf",
-#     products=[
-#         # storage.products[110102500000],
-#         # storage.products[130569400000],
-#         # storage.products[110174000000],
-#         # storage.products[109700200000]
-#     ]
-# )
+shopping_list_cart = Cart(
+    cart_id=-1,
+    date=datetime.date.today(),
+    location="asdf",
+    products=[
+        storage.products[110102500000],
+        storage.products[130569400000],
+        storage.products[110174000000],
+        storage.products[109700200000]
+    ]
+)
 
-shopping_list_cart = storage.get_cart(103708000001)
+# shopping_list_cart = storage.get_cart(103708000001)
 
 
 @app.route("/")
@@ -41,7 +41,14 @@ def index():
 
 @app.route("/shopping_list")
 def shopping_list():
+    better = storage.get_max_cart(shopping_list_cart)
+    savings = better.score_sum()[0] - shopping_list_cart.score_sum()[0]
+    cost = better.cost() - shopping_list_cart.cost()
+    cost = "{:.2f}".format(cost / 100)
+
     return render_template("shopping_list/show.html",
+                           cost=cost,
+                           savings=savings,
                            storage=storage,
                            shopping_list=shopping_list_cart
                            )
