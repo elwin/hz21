@@ -12,7 +12,9 @@
         <div class="card-body">
             <div class="row flex-row flex-nowrap" style="overflow-y: auto;">
                 {% for product in products %}
-                    {% include "partials/product.html" %}
+                    <div class="mr-4 product-width">
+                        {% include "partials/product.html" %}
+                    </div>
                 {% endfor %}
             </div>
         </div>

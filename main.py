@@ -39,11 +39,11 @@ def myprofile():
 def purchase():
     products = [
         storage.products[131022500000],
-        storage.products[130569400000],
-        storage.products[204101500000],
         storage.products[109700200000],
         storage.products[111273500000],
         storage.products[131126100000],
+        storage.products[204101500000],
+        storage.products[130569400000],
         storage.products[105276800000],
         storage.products[204015800000],
     ]
