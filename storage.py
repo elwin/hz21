@@ -38,7 +38,7 @@ def read_data(path: str):
 
     shopping_cart_path = path + "shopping_cart_new/"
 
-    for filename in os.listdir(shopping_cart_path)[:2]:
+    for filename in ["Abverkaufdaten_trx_202001.csv", "Abverkaufdaten_trx_202002.csv"]:
         with open(shopping_cart_path + filename) as f:
             r = csv.reader(f, delimiter=',')
             for i, row in enumerate(r):
@@ -50,24 +50,7 @@ def read_data(path: str):
                 #     break
 
                 user_id = int(row[1])
-
-                # register new users
-                if user_id not in user_list:
-
-                    # only register 5 users
-                    if len(user_list) == 5:  # only take 5 users for now
-                        continue
-
-                    user_list[user_id] = users.User(
-                        user_id=user_id,
-                        name=['Elwin', 'Daniela', 'Till', 'Leon', 'Ueli'][len(user_list)],  # f"xyz_{customer_id}"
-                        cart_list=[]
-                    )
-
-                user = user_list[user_id]
-
                 cart_id = 1000000 * user_id + int(row[2])
-
                 product_id = int(row[8])
                 product = product_list.get(product_id)
 
@@ -83,7 +66,6 @@ def read_data(path: str):
                         location=row[4][3:],  # exclude canton abbreviation
                         products=[],
                     )
-                    user.add_cart(cart_list[cart_id])
 
                 cart = cart_list[cart_id]
 
@@ -93,17 +75,38 @@ def read_data(path: str):
 
                 cart.add_product(product)
 
-            # # sort carts
-            # for id, customer in user_list.items():
-            #     customer.carts = sorted(customer.carts, key=lambda cart: cart.date)
+    user_list = {
+        0: users.User(0, "Dani", [
+            cart_list[74311034733],
+            cart_list[34391034664],
+            cart_list[90472074215],
+            cart_list[94291053671],
+        ]),
+        1: users.User(1, "Till", [
+            cart_list[44881089286],
+            cart_list[44881089281],
+            cart_list[34391000074],
+            cart_list[94291058155],
+        ]),
+        2: users.User(2, "Leon", [
+            cart_list[90472041802],
+            cart_list[90472036484],
+            cart_list[74311066213],
+            cart_list[94291032991],
+        ]),
+        3: users.User(3, "Elwin", [
+            cart_list[74311074803],
+            cart_list[34391082044],
+            cart_list[34391030801],
+        ]),
+        4: users.User(4, "Ueli", [
+            cart_list[94291065672],
+            cart_list[74311002101],
+            cart_list[90472077481],
+            cart_list[94291098884],
+        ]),
+    }
 
-    # add friends
-    for id1, u1 in user_list.items():
-        for id2, u2 in user_list.items():
-            if id1 != id2:
-                u1.friends.append(u2)
-
-    user_list = {k: user_list[k] for k in list(user_list)[:10]}
     return user_list, cart_list, product_list
 
 

@@ -1,9 +1,8 @@
 import users
-from typing import Dict
+from typing import List
 
 
-def get_timeline(user: users.User):
-
+def get_timeline(user: users.User, friends: List[users.User]):
     carts = user.carts
     scores = {
         cart: cart.score()
@@ -15,13 +14,11 @@ def get_timeline(user: users.User):
     weekly_scores = user.weekly_score(5, current_week)
 
     friends_scores = {
-        friend.name: friend.weekly_score(5, current_week)
-        for friend in user.friends
+        friend.name: friend.weekly_score(5, current_week) for friend in friends
     }
 
     ranking_data_dict = {
-        friend.name: sum(filter(None, friends_scores[friend.name]))
-        for friend in user.friends
+        friend.name: sum(filter(None, friends_scores[friend.name])) for friend in friends
     }
     ranking_data_dict_sorted = {k: v for k, v in sorted(ranking_data_dict.items(), key=lambda item: item[1])}
 

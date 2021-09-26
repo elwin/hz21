@@ -6,29 +6,35 @@ from carts import Cart
 
 app = Flask(__name__)
 
-me = 34390  # 100688
+me = 0  # 100688
 
 # storage = storage.MockStorage()
 storage = storage.FileStorage("resources/")
 
-shopping_list_cart = Cart(
-    cart_id=-1,
-    date=datetime.date.today(),
-    location="asdf",
-    products=[
-        storage.products[110102500000],
-        storage.products[130569400000],
-        storage.products[110174000000],
-        storage.products[109700200000]
-    ]
-)
+# shopping_list_cart = Cart(
+#     cart_id=-1,
+#     date=datetime.date.today(),
+#     location="asdf",
+#     products=[
+#         # storage.products[110102500000],
+#         # storage.products[130569400000],
+#         # storage.products[110174000000],
+#         # storage.products[109700200000]
+#     ]
+# )
+
+shopping_list_cart = storage.get_cart(44881006881)
+
 
 @app.route("/")
 def index():
     return render_template("index.html",
                            user=storage.user(me),
                            carts=storage.get_carts(me),
-                           timeline=business.get_timeline(storage.user(me)),
+                           timeline=business.get_timeline(
+                               storage.user(me),
+                               [storage.user(1), storage.user(2), storage.user(3), storage.user(4)],
+                           ),
                            shopping_list=shopping_list_cart,
                            )
 
@@ -47,6 +53,7 @@ def cart(cart_id: int):
                            cart=storage.get_cart(cart_id),
                            storage=storage,
                            )
+
 
 @app.route("/leaderbord")
 def leaderboard():
