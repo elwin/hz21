@@ -8,7 +8,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">#</th>
+            <th scope="col">Rank</th>
             <th scope="col">Name</th>
             <th scope="col">Score</th>
         </tr>
@@ -16,7 +16,7 @@
         <tbody>
             {% for id, user in users.items() %}
                 <tr>
-                    <th scope="row">RANK</th>
+                    <th scope="row">{{ loop.index }}</th>
                     <td>{{user.name}}</td>
                     <td>{{user.score()}}</td>
                 </tr>
