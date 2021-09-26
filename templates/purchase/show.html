@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+    New Purchase Made!
+{% endblock %}
+
+{% block content %}
+    Congrats, your latest purchase was very sustainable!
+
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row flex-row flex-nowrap" style="overflow-y: auto;">
+                {% for product in products %}
+                    {% include "partials/product.html" %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -4,7 +4,8 @@ import storage
 from statistics import mean
 
 class Product:
-    def __init__(self, name: str, price: int, score: int,  img_link: str, related_ids: List[int]):
+    def __init__(self, product_id: int, name: str, price: int, score: int,  img_link: str, related_ids: List[int]):
+        self.id = product_id
         self.name = name
         self.price = price
         self.score = score
