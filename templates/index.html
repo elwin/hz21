@@ -117,7 +117,7 @@
         </div>
     </div>
     <h1>Past Purchases</h1>
-    {% for cart in carts %}
+    {% for cart in carts[:10] %}
         {% include 'partials/past_cart.html' %}
     {% endfor %}
 {% endblock %}
