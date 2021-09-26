@@ -11,6 +11,17 @@ me = 34390  # 100688
 # storage = storage.MockStorage()
 storage = storage.FileStorage("resources/")
 
+shopping_list_cart = Cart(
+    cart_id=-1,
+    date=datetime.date.today(),
+    location="asdf",
+    products=[
+        storage.products[110102500000],
+        storage.products[130569400000],
+        storage.products[110174000000],
+        storage.products[109700200000]
+    ]
+)
 
 @app.route("/")
 def index():
@@ -18,7 +29,15 @@ def index():
                            user=storage.user(me),
                            carts=storage.get_carts(me),
                            timeline=business.get_timeline(storage.user(me)),
-                           current_cart=storage.get_cart(list(storage.cart_list.keys())[-1]),
+                           shopping_list=shopping_list_cart,
+                           )
+
+
+@app.route("/shopping_list")
+def shopping_list():
+    return render_template("shopping_list/show.html",
+                           storage=storage,
+                           shopping_list=shopping_list_cart
                            )
 
 
@@ -28,7 +47,6 @@ def cart(cart_id: int):
                            cart=storage.get_cart(cart_id),
                            storage=storage,
                            )
-
 
 @app.route("/leaderbord")
 def leaderboard():

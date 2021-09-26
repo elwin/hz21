@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Your Shopping List
+    <span class="badge rounded-pill px-4 {{ shopping_list.get_bg_color() }}">{{ shopping_list.score() }}</span>
+    <br>
+
+{% endblock %}
+
+{% block content %}
+    <style>
+        .border-right {
+            border-right: 1px dashed var(--bs-gray-dark);
+        }
+    </style>
+    {% for product in shopping_list.products %}
+        <div class="card mb-4">
+            <div class="card-body">
+
+
+                <div class="row flex-row flex-nowrap" style="overflow-y: auto;">
+                    <div class="product-width border-right">
+                        {% include 'partials/product.html' %}
+                    </div>
+
+                    {% if storage.get_related_higher(product) | length > 0 %}
+                        {% for product in storage.get_related_higher(product) %}
+                            <div class="product-width">
+                                {% include 'partials/product.html' %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                    <div class="product-width" style="text-align: center;">
+                        <div class="card h-100 pt-5">
+                            <b>Nothing here!</b>
+                            <p>No better alternatives found :)</p>
+                        </div>
+                    </div>    
+                    {% endif %}
+
+
+                </div>
+
+
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

@@ -141,20 +141,20 @@
             <h5 class="card-title">
                 Your Current Shopping List
                 <span class="badge rounded-pill
-                        {{ current_cart.get_bg_color() }} px-3">{{ current_cart.score() }}</span>
+                        {{ shopping_list.get_bg_color() }} px-3">{{ shopping_list.score() }}</span>
                 <br>
             </h5>
 
 
             <div class="row flex-row flex-nowrap" style="overflow-y: auto;">
-                {% for product in current_cart.products %}
+                {% for product in shopping_list.products %}
                     <div class="mr-4 product-width">
                         {% include 'partials/product.html' %}
                     </div>
                 {% endfor %}
             </div>
             <a class="btn btn-secondary mt-3"
-               href="{{ url_for("cart", cart_id=current_cart.id) }}"
+               href="{{ url_for("shopping_list")}}"
             >
                 Edit
             </a>
