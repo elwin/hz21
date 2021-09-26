@@ -8,10 +8,10 @@ def get_week(date) -> int:
 
 
 class User:
-    def __init__(self, user_id: int, name: str, carts: List[carts.Cart]):
+    def __init__(self, user_id: int, name: str, cart_list: List[carts.Cart]):
         self.id = user_id
         self.name = name
-        self.carts = carts
+        self.carts = cart_list
         self.friends = []
 
     def add_friend(self, friend):

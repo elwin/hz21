@@ -43,7 +43,11 @@ def read_data(path: str):
             r = csv.reader(f, delimiter=',')
             for i, row in enumerate(r):
 
-                if i == 0: continue  # header
+                if i == 0:
+                    continue  # header
+
+                if i == 500:  # TODO: Remove
+                    break
 
                 user_id = int(row[1])
 
@@ -57,7 +61,7 @@ def read_data(path: str):
                     user_list[user_id] = users.User(
                         user_id=user_id,
                         name=['Elwin', 'Daniela', 'Till', 'Leon', 'Ueli'][len(user_list)],  # f"xyz_{customer_id}"
-                        carts=[]
+                        cart_list=[]
                     )
 
                 user = user_list[user_id]
