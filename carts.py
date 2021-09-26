@@ -13,9 +13,6 @@ class Product:
         self.img_link = img_link
         self.related_ids = related_ids
 
-    def related(self):
-        return [storage.chips, storage.apple]
-
     def get_bg_color(self) -> str:
         if self.score >= 4:
             return "bg-success"

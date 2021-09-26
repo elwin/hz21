@@ -130,3 +130,15 @@ class FileStorage:
 
     def get_related_higher(self, product: carts.Product):
         return [p for p in self.get_related(product) if p.score > product.score]
+
+    def get_max_score(self, cart: carts.Cart) -> int:
+        score = 0
+
+        for product in cart.products:
+            related = self.get_related_higher(product)
+            if len(related) > 0:
+                score += related[0].score
+            else:
+                score += product.score
+
+        return score
