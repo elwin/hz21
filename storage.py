@@ -16,7 +16,7 @@ def read_data(path: str):
 
     product_path = path + "products/"
 
-    for filename in os.listdir(product_path)[:5000]:
+    for filename in sorted(os.listdir(product_path))[:5000]:
         with open(product_path + filename, encoding="utf-8") as f:
             data = json.loads(f.read())
             try:
@@ -77,33 +77,33 @@ def read_data(path: str):
 
     user_list = {
         0: users.User(0, "Dani", [
-            cart_list[107748000001],
-            cart_list[108928000006],
-            cart_list[106563000002],
-            cart_list[102111000004],
+            cart_list[107387000002],
+            cart_list[102676000002],
+            cart_list[106024000001],
+            cart_list[109513000007],
         ]),
         1: users.User(1, "Till", [
-            cart_list[108204000004],
-            cart_list[103080000001],
-            cart_list[107421000005],
-            cart_list[103436000003],
+            cart_list[105471000003],
+            cart_list[108321000001],
+            cart_list[109192000005],
+            cart_list[107211000001],
         ]),
         2: users.User(2, "Leon", [
-            cart_list[103466000004],
-            cart_list[108646000006],
-            cart_list[105367000001],
-            cart_list[105367000003],
+            cart_list[100792000004],
+            cart_list[103202000002],
+            cart_list[107624000003],
+            cart_list[108987000006],
         ]),
         3: users.User(3, "Elwin", [
-            cart_list[107480000006],
-            cart_list[102186000004],
-            cart_list[102745000002],
+            cart_list[106155000002],
+            cart_list[102770000003],
+            cart_list[100615000006],
         ]),
         4: users.User(4, "Ueli", [
-            cart_list[109221000008],
-            cart_list[109091000003],
-            cart_list[108928000001],
-            cart_list[104180000002],
+            cart_list[104267000004],
+            cart_list[103708000001],
+            cart_list[104303000003],
+            cart_list[105249000004],
         ]),
     }
 
