@@ -9,6 +9,29 @@
     <canvas id="scoreHistChart"></canvas>
     <canvas id="rankingChart"></canvas>
 
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                abs score
+                </div>
+                <div class="card-body">
+                <h5 class="card-title">{{ user.abs_score_last_5_weeks() }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                avg score
+                </div>
+                <div class="card-body">
+                <h5 class="card-title">{{ user.avg_score_last_5_weeks() }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
 
         let user_data = {{ timeline | tojson }};
@@ -108,7 +131,7 @@
             type: 'bar',
             data: rankingChartData,
             options: {
-                indexAxis: 'x',
+                indexAxis: 'y',
             }
         });
 

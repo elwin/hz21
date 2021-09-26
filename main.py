@@ -13,6 +13,7 @@ storage = storage.FileStorage("resources/")
 @app.route("/")
 def index():
     return render_template("index.html",
+                           user=storage.user(me),
                            carts=storage.get_carts(me),
                            timeline=business.get_timeline(storage.user(me)),
                            current_cart=storage.get_cart(list(storage.cart_list.keys())[-1]),
