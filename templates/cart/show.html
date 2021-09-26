@@ -26,7 +26,7 @@
                         </div>
 
 
-                        {% for product in storage.get_related(product) %}
+                        {% for product in storage.get_related_higher(product) %}
                             <!--This is supposed to be horizontally scrollable - but I can't figure it out-->
                             <div class="product-width">
                                 {% include 'partials/product.html' %}

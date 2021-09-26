@@ -50,6 +50,12 @@ def get_timeline(user: users.User):
         for friend in user.friends
     }
 
+    ranking_data_dict = {
+        friend.name: sum(filter(None, friends_scores[friend.name]))
+        for friend in user.friends
+    }
+    ranking_data_dict_sorted = {k: v for k, v in sorted(ranking_data_dict.items(), key=lambda item: item[1])}
+
     return {
         'user_id': user.id,
         'current_week': current_week,
@@ -57,4 +63,5 @@ def get_timeline(user: users.User):
         'avg_score': avg_score,
         'weekly_scores': weekly_scores,
         'friends_scores': friends_scores,
+        'ranking': ranking_data_dict_sorted,
     }

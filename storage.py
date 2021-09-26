@@ -157,3 +157,6 @@ class FileStorage:
 
     def get_related(self, product: carts.Product):
         return [self.products.get(key) for key in product.related_ids if key in self.products]
+
+    def get_related_higher(self, product: carts.Product):
+        return filter(lambda p: p.score < product.score, self.get_related(product))
