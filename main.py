@@ -15,7 +15,7 @@ def index():
     return render_template("index.html",
                            carts=storage.get_carts(me),
                            timeline=business.get_timeline(storage.user(me)),
-                           current_cart=storage.get_cart(34391089036),
+                           current_cart=storage.get_cart(list(storage.cart_list.keys())[-1]),
                            )
 
 
@@ -34,3 +34,18 @@ def leaderboard():
 @app.route("/me")
 def myprofile():
     return render_template("myprofile/index.html") # logged-in user is hardcoded
+
+@app.route("/purchase")
+def purchase():
+    products = [
+        storage.products[131022500000],
+        storage.products[130569400000],
+        storage.products[204101500000],
+        storage.products[109700200000],
+        storage.products[111273500000],
+        storage.products[131126100000],
+        storage.products[105276800000],
+        storage.products[204015800000],
+    ]
+
+    return render_template("purchase/show.html", products=products)
