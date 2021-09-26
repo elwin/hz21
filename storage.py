@@ -16,7 +16,7 @@ def read_data(path: str):
 
     product_path = path + "products/"
 
-    for filename in sorted(os.listdir(product_path))[:5000]:
+    for filename in sorted(os.listdir(product_path)):
         with open(product_path + filename, encoding="utf-8") as f:
             data = json.loads(f.read())
             try:
