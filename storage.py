@@ -46,8 +46,8 @@ def read_data(path: str):
                 if i == 0:
                     continue  # header
 
-                if i == 500:  # TODO: Remove
-                    break
+                # if i == 500:  # TODO: Remove
+                #     break
 
                 user_id = int(row[1])
 
