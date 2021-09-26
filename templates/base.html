@@ -16,15 +16,17 @@
         a {
             color: black;
         }
-        a:hover{
-            color:#0a58ca;
+
+        a:hover {
+            color: #0a58ca;
         }
 
         .nav-link {
             color: black;
         }
+
         body {
-            font-family: Helvetica Now Display,Helvetica,arial,sans-serif;
+            font-family: Helvetica Now Display, Helvetica, arial, sans-serif;
         }
 
         .price-badge {
@@ -42,7 +44,7 @@
             text-decoration: none;
         }
 
-        .character-card{
+        .character-card {
             border-radius: 5%;
             stroke-width: 10px;
             stroke: black;
@@ -77,7 +79,12 @@
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for("myprofile") }}">My Profile</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url_for("leaderboard") }}">Leaderboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for("purchase") }}">Purchase Made</a>
                 </li>
             </ul>
         </div>
