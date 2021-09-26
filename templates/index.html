@@ -3,6 +3,31 @@
 {% block title %}Carts{% endblock %}
 
 {% block content %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">
+                Your Current Shopping List
+                <span class="badge rounded-pill
+                        {{ shopping_list.get_bg_color() }} px-3">{{ shopping_list.score() }}</span>
+                <br>
+            </h5>
+
+
+            <div class="row flex-row flex-nowrap" style="overflow-y: auto;">
+                {% for product in shopping_list.products %}
+                    <div class="mr-4 product-width">
+                        {% include 'partials/product.html' %}
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="btn btn-secondary mt-3"
+            href="{{ url_for("shopping_list")}}"
+            >
+                Edit
+            </a>
+
+        </div>
+    </div>
 
     <h3>Stats</h3>
 
@@ -136,31 +161,6 @@
         });
 
     </script>
-    <div class="card mb-4">
-        <div class="card-body">
-            <h5 class="card-title">
-                Your Current Shopping List
-                <span class="badge rounded-pill
-                        {{ shopping_list.get_bg_color() }} px-3">{{ shopping_list.score() }}</span>
-                <br>
-            </h5>
-
-
-            <div class="row flex-row flex-nowrap" style="overflow-y: auto;">
-                {% for product in shopping_list.products %}
-                    <div class="mr-4 product-width">
-                        {% include 'partials/product.html' %}
-                    </div>
-                {% endfor %}
-            </div>
-            <a class="btn btn-secondary mt-3"
-               href="{{ url_for("shopping_list")}}"
-            >
-                Edit
-            </a>
-
-        </div>
-    </div>
     <h1>Past Purchases</h1>
     {% for cart in carts[:10] %}
         {% include 'partials/past_cart.html' %}
