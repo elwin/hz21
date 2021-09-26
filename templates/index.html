@@ -9,6 +9,29 @@
     <canvas id="scoreHistChart"></canvas>
     <canvas id="rankingChart"></canvas>
 
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                abs score
+                </div>
+                <div class="card-body">
+                <h5 class="card-title">{{ user.abs_score_last_5_weeks() }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                avg score
+                </div>
+                <div class="card-body">
+                <h5 class="card-title">{{ user.avg_score_last_5_weeks() }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
 
         let user_data = {{ timeline | tojson }};
@@ -108,7 +131,7 @@
             type: 'bar',
             data: rankingChartData,
             options: {
-                indexAxis: 'x',
+                indexAxis: 'y',
             }
         });
 
@@ -117,11 +140,12 @@
         <div class="card-body">
             <h5 class="card-title">
                 Your Current Shopping List
-                <span class="badge rounded-pill {{ current_cart.get_bg_color() }} px-3">{{ current_cart.score() }}</span>
+                <span class="badge rounded-pill
+                        {{ current_cart.get_bg_color() }} px-3">{{ current_cart.score() }}</span>
                 <br>
             </h5>
-    
-    
+
+
             <div class="row flex-row flex-nowrap" style="overflow-y: auto;">
                 {% for product in current_cart.products %}
                     <div class="mr-4 product-width">
@@ -134,11 +158,23 @@
             >
                 Edit
             </a>
-    
+
         </div>
     </div>
     <h1>Past Purchases</h1>
     {% for cart in carts[:10] %}
         {% include 'partials/past_cart.html' %}
     {% endfor %}
+
+    <script>
+        window.onscroll = function (ev) {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                setTimeout(() => {
+                    window.location.href = "{{ url_for("purchase") }}";
+                }, 5000);
+            }
+        };
+
+    </script>
+
 {% endblock %}
